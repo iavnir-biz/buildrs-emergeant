@@ -1,0 +1,167 @@
+{
+  "identity": {
+    "persona": "E1",
+    "mission": "Create a dense, functional, and visually precise SaaS dashboard for 'Buildrs' that replicates the exact style of 8lab.fr/app.",
+    "core_principles": [
+      "Density over Space: Unlike standard E1 spacing, this specific task requires a dense, data-rich dashboard style.",
+      "Function over Flair: No futuristic hero sections. Pure utility.",
+      "Strict Color Palette: Adhere strictly to the requested dark/cream system.",
+      "Typography Dominance: Poppins is the only voice."
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "primary": "Poppins, sans-serif",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    },
+    "scale": {
+      "base": "14px",
+      "h1": "text-2xl font-semibold tracking-tight",
+      "h2": "text-xl font-medium tracking-tight",
+      "h3": "text-lg font-medium",
+      "body": "text-sm leading-relaxed",
+      "small": "text-xs font-medium text-muted-foreground"
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');"
+    ]
+  },
+  "colors": {
+    "theme": "dark",
+    "palette": {
+      "background": "#0A0A0A",
+      "card": "#141414",
+      "card_hover": "#1A1A1A",
+      "border": "#222222",
+      "primary": "#F5F0E8",
+      "primary_foreground": "#0A0A0A",
+      "muted": "#1F1F1F",
+      "muted_foreground": "rgba(255,255,255,0.50)",
+      "accent": "#F5F0E8",
+      "accent_foreground": "#0A0A0A",
+      "success": "#22C55E",
+      "destructive": "#EF4444"
+    },
+    "tailwind_vars": {
+      "--background": "0 0% 3.9%",
+      "--foreground": "0 0% 98%",
+      "--card": "0 0% 7.8%",
+      "--card-foreground": "0 0% 98%",
+      "--popover": "0 0% 7.8%",
+      "--popover-foreground": "0 0% 98%",
+      "--primary": "38 36% 94%",
+      "--primary-foreground": "0 0% 3.9%",
+      "--secondary": "0 0% 12.2%",
+      "--secondary-foreground": "0 0% 98%",
+      "--muted": "0 0% 12.2%",
+      "--muted-foreground": "0 0% 63.9%",
+      "--accent": "38 36% 94%",
+      "--accent-foreground": "0 0% 3.9%",
+      "--destructive": "0 84.2% 60.2%",
+      "--destructive-foreground": "0 0% 98%",
+      "--border": "0 0% 13.3%",
+      "--input": "0 0% 13.3%",
+      "--ring": "38 36% 94%"
+    }
+  },
+  "layout": {
+    "structure": "Fixed Sidebar Left + Scrollable Content Right",
+    "sidebar": {
+      "width": "280px",
+      "position": "fixed",
+      "behavior": "Collapsible groups",
+      "styles": "bg-[#0A0A0A] border-r border-[#222222] h-screen flex flex-col p-4"
+    },
+    "topbar": {
+      "height": "64px",
+      "styles": "flex items-center justify-between px-8 py-4 border-b border-[#222222] bg-[#0A0A0A]/80 backdrop-blur-md sticky top-0 z-50",
+      "elements": ["Breadcrumb (Left)", "Referral CTA (Center-Right)", "Bell Icon (Right)"]
+    },
+    "content_area": {
+      "padding": "p-8",
+      "background": "bg-[#0A0A0A]",
+      "max_width": "max-w-[1600px] mx-auto"
+    }
+  },
+  "components": {
+    "Card": {
+      "base": "bg-[#141414] border border-[#222222] rounded-[10px] overflow-hidden",
+      "hover": "hover:bg-[#1A1A1A] transition-colors duration-200",
+      "padding": "p-6"
+    },
+    "Button": {
+      "primary": "bg-[#F5F0E8] text-[#0A0A0A] hover:bg-[#E0DBD3] font-medium rounded-md px-4 py-2 text-sm",
+      "secondary": "bg-[#1F1F1F] text-[#F0F0F0] hover:bg-[#2A2A2A] font-medium rounded-md px-4 py-2 text-sm",
+      "outline": "border border-[#222222] bg-transparent text-[#F0F0F0] hover:bg-[#1A1A1A] rounded-md px-4 py-2 text-sm",
+      "ghost": "hover:bg-[#1A1A1A] text-[#F0F0F0] rounded-md px-3 py-2"
+    },
+    "Badge": {
+      "success": "bg-[#22C55E]/10 text-[#22C55E] border border-[#22C55E]/20 text-xs px-2.5 py-0.5 rounded-full font-medium",
+      "neutral": "bg-[#1F1F1F] text-muted-foreground border border-[#222222] text-xs px-2.5 py-0.5 rounded-full"
+    },
+    "Input": {
+      "base": "bg-[#0A0A0A] border border-[#222222] focus:border-[#F5F0E8]/50 focus:ring-1 focus:ring-[#F5F0E8]/50 rounded-md h-10 px-3 text-sm text-[#F0F0F0] placeholder:text-muted-foreground/50"
+    },
+    "Tabs": {
+      "list": "bg-[#141414] border border-[#222222] p-1 rounded-lg inline-flex",
+      "trigger": "data-[state=active]:bg-[#2A2A2A] data-[state=active]:text-[#F0F0F0] text-muted-foreground px-4 py-1.5 rounded-md text-sm font-medium transition-all"
+    }
+  },
+  "visual_enhancers": {
+    "gradients": "None. Flat colors only.",
+    "shadows": "shadow-sm for dropdowns/popovers only. Cards are flat with borders.",
+    "borders": "1px solid #222222 everywhere.",
+    "radius": "rounded-[8px] or rounded-[10px] for cards/inputs. rounded-full for badges/avatars."
+  },
+  "assets": {
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-[1.5px] w-5 h-5"
+    },
+    "images": {
+      "user_avatars": [
+        "https://images.unsplash.com/photo-1758518727888-ffa196002e59?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGJ1c2luZXNzJTIwcGVyc29ufGVufDB8fHx8MTc3MjI3OTY3NXww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1770058428154-9eee8a6a1fbb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGJ1c2luZXNzJTIwcGVyc29ufGVufDB8fHx8MTc3MjI3OTY3NXww&ixlib=rb-4.1.0&q=85"
+      ],
+      "placeholders": [
+        "https://images.unsplash.com/photo-1694654834978-3f5011c590ec?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBhYnN0cmFjdCUyMHRlY2hub2xvZ3klMjBpY29uJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MjI3OTY4Mnww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1767642833959-0cac90824996?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYWJzdHJhY3QlMjAzZCUyMHNoYXBlcyUyMGRhcmslMjBtb2RlfGVufDB8fHx8MTc3MjI3OTY2N3ww&ixlib=rb-4.1.0&q=85"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. FIRST ACTION: Update 'tailwind.config.js' and 'index.css' with the EXACT variables provided in the 'colors' section. This is non-negotiable.",
+    "2. SECOND ACTION: Install 'lucide-react' if not present.",
+    "3. NAVIGATION: Build the Sidebar component exactly as described: Fixed 280px, bg-[#0A0A0A], border-r border-[#222222]. Use a collapsible accordion pattern for submenus.",
+    "4. LAYOUT: Ensure the main content area has `ml-[280px]` (margin-left) to account for the fixed sidebar. Do NOT use absolute positioning for the main content.",
+    "5. TYPOGRAPHY: Import Poppins in index.css and set it as the default font-family.",
+    "6. COMPONENTS: Create a reusable 'Card' component that defaults to bg-[#141414] and border-[#222222].",
+    "7. PAGES: Implement the Dashboard, Training (Formation), and Tools pages using the Grid layout.",
+    "8. CRITICAL: Do NOT use purple, blue, or gradients. Stick to the Cream (#F5F0E8) and Green (#22C55E) accents.",
+    "9. ICONS: Use Lucide icons. 'LayoutDashboard', 'GraduationCap', 'Wrench', 'MessageSquare', 'Users', 'Settings', 'LogOut'.",
+    "10. TESTING: Add 'data-testid' to all interactive elements (sidebar links, buttons, cards)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) only for the sticky topbar.",
+    "You MUST NOT apply universal transition. Eg: 'transition: all'. This results in breaking transforms.",
+    "You MUST NOT center align the app container. This disrupts the human natural reading flow of text.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER: use AI assistant Emoji characters for icons.",
+    "Every interaction needs micro-animations - hover states, transitions. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap (EXCEPT for this specific dashboard which requests density - balance is key).",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Create new components that match the style and conventions of existing components when needed.",
+    "Components MUST use named exports.",
+    "Pages MUST use default exports.",
+    "Use 'sonner' for toasts."
+  ]
+}
