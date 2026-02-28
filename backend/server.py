@@ -393,21 +393,60 @@ async def get_ideas(current_user: dict = Depends(get_current_user)):
 @api_router.post("/ideas")
 async def create_idea(data: IdeaCreate, current_user: dict = Depends(get_current_user)):
     now = datetime.now(timezone.utc).isoformat()
-    import random
-    names = ["FlowSync", "BuildMate", "NicheAI", "LaunchPad", "SaaSFlow", "IdeaForge"]
+    emergent_key = os.environ.get('EMERGENT_LLM_KEY', '')
+    idea_data = {}
+    if emergent_key:
+        try:
+            chat = LlmChat(
+                api_key=emergent_key,
+                session_id=f"idea_{uuid.uuid4().hex[:8]}",
+                system_message="""Tu es un expert SaaS B2B IA. Génère des concepts innovants et viables.
+Réponds UNIQUEMENT avec un JSON valide (sans markdown, sans code fences) avec exactement ces champs:
+{"name": "NomDuSaaS", "problem": "problème en 1-2 phrases", "solution": "solution en 1-2 phrases", "target": "cible principale", "mrr_estimate_low": 1000, "mrr_estimate_high": 8000, "complexity": "Moyen", "opportunity_score": 78, "exit_strategy": "MRR long terme puis revente"}"""
+            ).with_model("anthropic", "claude-sonnet-4-5-20250929")
+            niche_text = f" dans la niche {data.niche}" if data.niche else ""
+            prompt = f"Génère un concept SaaS IA pour ce problème/contexte{niche_text}: {data.prompt}"
+            response = await asyncio.to_thread(
+                lambda: asyncio.get_event_loop().run_until_complete(chat.send_message(UserMessage(text=prompt)))
+                if False else None
+            )
+            # Use sync workaround via thread
+            import concurrent.futures
+            loop = asyncio.new_event_loop()
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                response = await asyncio.get_event_loop().run_in_executor(
+                    pool,
+                    lambda: loop.run_until_complete(chat.send_message(UserMessage(text=prompt)))
+                )
+            loop.close()
+            clean = response.strip().strip('`').strip()
+            if clean.startswith('json'):
+                clean = clean[4:].strip()
+            idea_data = json.loads(clean)
+        except Exception as e:
+            logger.error(f"Claude idea generation error: {e}")
+            import random
+            idea_data = {
+                "name": "IdeaFlow", "problem": f"Problème identifié: {data.prompt[:80]}",
+                "solution": "Solution IA automatisée", "target": "PME B2B",
+                "mrr_estimate_low": random.randint(500, 2000),
+                "mrr_estimate_high": random.randint(3000, 10000),
+                "complexity": "Moyen", "opportunity_score": random.randint(60, 90),
+                "exit_strategy": "MRR long terme"
+            }
+    else:
+        import random
+        idea_data = {
+            "name": "SaaSFlow", "problem": f"Problème: {data.prompt[:80]}",
+            "solution": "Automatisation IA", "target": "B2B PME",
+            "mrr_estimate_low": random.randint(500, 2000), "mrr_estimate_high": random.randint(3000, 10000),
+            "complexity": "Moyen", "opportunity_score": random.randint(60, 90),
+            "exit_strategy": "MRR long terme"
+        }
     idea = {
         "id": f"idea_{uuid.uuid4().hex[:8]}", "user_id": current_user["user_id"],
-        "prompt": data.prompt, "niche": data.niche or "Tech",
-        "name": random.choice(names),
-        "problem": f"Les entrepreneurs dans le domaine '{data.niche or 'Tech'}' passent trop de temps sur des tâches manuelles répétitives.",
-        "solution": f"Un SaaS IA qui automatise et optimise {data.prompt[:50]}...",
-        "target": "PME et indépendants B2B",
-        "mrr_estimate_low": random.randint(500, 2000),
-        "mrr_estimate_high": random.randint(3000, 10000),
-        "complexity": random.choice(["Simple", "Moyen", "Complexe"]),
-        "opportunity_score": random.randint(60, 95),
-        "exit_strategy": "MRR long terme",
-        "created_at": now
+        "prompt": data.prompt, "niche": data.niche or idea_data.get("target", "Tech"),
+        **idea_data, "created_at": now
     }
     await db.saas_ideas.insert_one(idea)
     return {k: v for k, v in idea.items() if k != "_id"}
