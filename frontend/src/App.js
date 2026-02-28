@@ -112,6 +112,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <AppRouter />
+        <Toaster position="bottom-right" theme="dark" />
       </AuthProvider>
     </BrowserRouter>
   );
