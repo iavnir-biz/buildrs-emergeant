@@ -75,6 +75,13 @@ class ModuleProgressUpdate(BaseModel):
     status: str
     progress_percent: int = 0
 
+class AlfredChatMessage(BaseModel):
+    session_id: str
+    message: str
+
+class AlfredSessionCreate(BaseModel):
+    title: Optional[str] = None
+
 class NotifSettings(BaseModel):
     email_modules: Optional[bool] = None
     email_community: Optional[bool] = None
