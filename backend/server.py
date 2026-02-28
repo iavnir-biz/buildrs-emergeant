@@ -406,22 +406,12 @@ Réponds UNIQUEMENT avec un JSON valide (sans markdown, sans code fences) avec e
             ).with_model("anthropic", "claude-sonnet-4-5-20250929")
             niche_text = f" dans la niche {data.niche}" if data.niche else ""
             prompt = f"Génère un concept SaaS IA pour ce problème/contexte{niche_text}: {data.prompt}"
-            response = await asyncio.to_thread(
-                lambda: asyncio.get_event_loop().run_until_complete(chat.send_message(UserMessage(text=prompt)))
-                if False else None
-            )
-            # Use sync workaround via thread
-            import concurrent.futures
-            loop = asyncio.new_event_loop()
-            with concurrent.futures.ThreadPoolExecutor() as pool:
-                response = await asyncio.get_event_loop().run_in_executor(
-                    pool,
-                    lambda: loop.run_until_complete(chat.send_message(UserMessage(text=prompt)))
-                )
-            loop.close()
-            clean = response.strip().strip('`').strip()
-            if clean.startswith('json'):
-                clean = clean[4:].strip()
+            response = await chat.send_message(UserMessage(text=prompt))
+            clean = response.strip()
+            if clean.startswith('```'):
+                clean = clean.split('```')[1].strip()
+                if clean.startswith('json'):
+                    clean = clean[4:].strip()
             idea_data = json.loads(clean)
         except Exception as e:
             logger.error(f"Claude idea generation error: {e}")
