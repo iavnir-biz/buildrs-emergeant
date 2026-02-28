@@ -565,6 +565,101 @@ async def get_activity(current_user: dict = Depends(get_current_user)):
     activities.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
     return activities[:8]
 
+# ============ ALFRED AI CHAT ROUTES ============
+
+@api_router.get("/alfred/sessions")
+async def get_alfred_sessions(current_user: dict = Depends(get_current_user)):
+    sessions = await db.alfred_sessions.find(
+        {"user_id": current_user["user_id"]}, {"_id": 0}
+    ).sort("created_at", -1).to_list(20)
+    return sessions
+
+@api_router.post("/alfred/sessions")
+async def create_alfred_session(data: AlfredSessionCreate, current_user: dict = Depends(get_current_user)):
+    now = datetime.now(timezone.utc).isoformat()
+    session = {
+        "id": f"sess_{uuid.uuid4().hex[:10]}",
+        "user_id": current_user["user_id"],
+        "title": data.title or "Nouvelle conversation",
+        "created_at": now, "updated_at": now
+    }
+    await db.alfred_sessions.insert_one(session)
+    return {k: v for k, v in session.items() if k != "_id"}
+
+@api_router.get("/alfred/sessions/{session_id}/messages")
+async def get_alfred_messages(session_id: str, current_user: dict = Depends(get_current_user)):
+    messages = await db.alfred_chat_messages.find(
+        {"session_id": session_id, "user_id": current_user["user_id"]}, {"_id": 0}
+    ).sort("created_at", 1).to_list(200)
+    return messages
+
+@api_router.post("/alfred/chat")
+async def alfred_chat(data: AlfredChatMessage, current_user: dict = Depends(get_current_user)):
+    emergent_key = os.environ.get('EMERGENT_LLM_KEY', '')
+    if not emergent_key:
+        raise HTTPException(status_code=500, detail="Clé IA non configurée")
+    now = datetime.now(timezone.utc).isoformat()
+    user_name = current_user.get("full_name") or current_user.get("name", "builder")
+    builder_type = current_user.get("builder_type", "")
+    objective = current_user.get("objective", "")
+    profile_context = ""
+    if builder_type:
+        profile_context += f" L'utilisateur est un {builder_type}."
+    if objective:
+        profile_context += f" Son objectif: {objective}."
+    # Save user message
+    user_msg_doc = {
+        "id": f"msg_{uuid.uuid4().hex[:8]}", "session_id": data.session_id,
+        "user_id": current_user["user_id"], "role": "user",
+        "content": data.message, "created_at": now
+    }
+    await db.alfred_chat_messages.insert_one(user_msg_doc)
+    # Build conversation history for context
+    history = await db.alfred_chat_messages.find(
+        {"session_id": data.session_id}, {"_id": 0}
+    ).sort("created_at", 1).to_list(20)
+    history_text = ""
+    for h in history[:-1]:  # Exclude the message just added
+        role_label = "Builder" if h["role"] == "user" else "Alfred"
+        history_text += f"{role_label}: {h['content']}\n"
+    system_message = f"""Tu es Alfred Orsini, fondateur de Buildrs Lab — une plateforme qui aide les entrepreneurs à créer, lancer et monétiser des SaaS IA en 30 jours.
+
+Ton style: direct, bienveillant, expert. Tu parles en français, tu tutoies. Tu donnes des conseils actionnables et concrets. Tu es enthousiaste mais pas commercial.
+{profile_context}
+
+Contexte Buildrs: méthode en 7 phases (Validation → Design → Build → Paiement → Lancement → Croissance → Sortie), focus SaaS IA B2B, outils IA, MRR.
+
+Réponds de manière concise (max 200 mots). Pose une question de suivi si pertinent."""
+    chat = LlmChat(
+        api_key=emergent_key,
+        session_id=data.session_id,
+        system_message=system_message
+    ).with_model("anthropic", "claude-sonnet-4-5-20250929")
+    # Include history in the prompt for context
+    full_prompt = data.message
+    if history_text:
+        full_prompt = f"[Historique de la conversation]\n{history_text}\n[Message actuel]\n{data.message}"
+    try:
+        response = await chat.send_message(UserMessage(text=full_prompt))
+    except Exception as e:
+        logger.error(f"Alfred chat error: {e}")
+        raise HTTPException(status_code=500, detail="Erreur IA, réessaie dans un instant")
+    # Save assistant response
+    ai_msg_doc = {
+        "id": f"msg_{uuid.uuid4().hex[:8]}", "session_id": data.session_id,
+        "user_id": current_user["user_id"], "role": "assistant",
+        "content": response, "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.alfred_chat_messages.insert_one(ai_msg_doc)
+    # Update session title if it's the first message
+    if len(history) <= 1:
+        title = data.message[:50] + ("..." if len(data.message) > 50 else "")
+        await db.alfred_sessions.update_one(
+            {"id": data.session_id},
+            {"$set": {"title": title, "updated_at": datetime.now(timezone.utc).isoformat()}}
+        )
+    return {k: v for k, v in ai_msg_doc.items() if k != "_id"}
+
 # ============ INCLUDE ROUTER ============
 
 app.include_router(api_router)
