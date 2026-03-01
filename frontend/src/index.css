@@ -215,6 +215,38 @@ body {
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+/* Premium banner shimmer sweep */
+.banner-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.banner-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -80%;
+  left: 0;
+  width: 35%;
+  height: 260%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.055) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  animation: shimmer-sweep 7s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0%   { left: -45%; opacity: 0; }
+  8%   { opacity: 1; }
+  45%  { left: 130%; opacity: 0; }
+  100% { left: 130%; opacity: 0; }
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
