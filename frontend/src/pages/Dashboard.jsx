@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import useEmblaCarousel from 'embla-carousel-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight, BookOpen, Zap, Target, TrendingUp, FlaskConical, Users } from 'lucide-react';
 
 const CAROUSEL_SLIDES = [
@@ -125,29 +126,97 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* BLOC 2 — Bandeau scrollable carousel */}
+      {/* BLOC 2 — Bandeau premium carousel */}
       <div className="mb-7">
-        <div className="bg-[#111111] border border-[#222222] rounded-[10px] px-5 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <span className="text-white font-bold text-[14px] whitespace-nowrap flex-shrink-0">
-              {BANNER_SLIDES[bannerIdx].label}
-            </span>
-            <div className="h-5 w-px bg-[#444444] flex-shrink-0"></div>
-            <p className="text-[rgba(255,255,255,0.65)] text-[13px] leading-snug line-clamp-2">
-              {BANNER_SLIDES[bannerIdx].text}
-            </p>
+        {/* Gradient border wrapper */}
+        <div
+          className="relative rounded-[13px] p-px"
+          style={{ background: 'linear-gradient(135deg, #3D3D3D 0%, #1E1E1E 45%, #383838 100%)' }}
+        >
+          {/* Inner panel */}
+          <div
+            className="relative rounded-[12px] overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #1C1C1C 0%, #252525 28%, #1A1A1A 55%, #222222 100%)',
+              minHeight: '76px',
+              padding: '18px 24px',
+            }}
+          >
+            {/* Shimmer sweep */}
+            <div className="banner-shimmer"></div>
+
+            {/* Top specular highlight */}
+            <div
+              className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+              style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.13) 50%, transparent 100%)' }}
+            />
+
+            {/* Subtle radial glow right side */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at 85% 50%, rgba(255,255,255,0.035) 0%, transparent 55%)' }}
+            />
+
+            {/* Slide content with Framer Motion */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={bannerIdx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.32, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative flex items-center justify-between gap-6"
+              >
+                <div className="flex items-center gap-4 flex-1 min-w-0">
+                  {/* Label with gradient text */}
+                  <span
+                    className="font-bold text-[15px] whitespace-nowrap flex-shrink-0 tracking-wide"
+                    style={{
+                      background: 'linear-gradient(135deg, #FFFFFF 0%, #999999 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {BANNER_SLIDES[bannerIdx].label}
+                  </span>
+
+                  {/* Separator */}
+                  <div
+                    className="h-6 w-px flex-shrink-0"
+                    style={{ background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.25), transparent)' }}
+                  />
+
+                  {/* Description */}
+                  <p className="text-[rgba(255,255,255,0.62)] text-[13px] leading-snug">
+                    {BANNER_SLIDES[bannerIdx].text}
+                  </p>
+                </div>
+
+                {/* CTA button */}
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  className="flex-shrink-0 text-[#0A0A0A] text-[12px] font-semibold px-5 py-2.5 rounded-[8px] whitespace-nowrap"
+                  style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%)' }}
+                >
+                  {BANNER_SLIDES[bannerIdx].cta}
+                </motion.button>
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <button className="flex-shrink-0 bg-white text-[#0A0A0A] text-[12px] font-semibold px-4 py-2 rounded-[6px] hover:bg-[#F0F0F0] transition-colors duration-200">
-            {BANNER_SLIDES[bannerIdx].cta}
-          </button>
         </div>
+
         {/* Navigation dots */}
-        <div className="flex justify-center gap-2 mt-2.5">
+        <div className="flex justify-center gap-2 mt-3">
           {BANNER_SLIDES.map((_, i) => (
             <button
               key={i}
               onClick={() => setBannerIdx(i)}
-              className={`rounded-full transition-all duration-200 ${bannerIdx === i ? 'w-4 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-[rgba(255,255,255,0.25)]'}`}
+              className={`rounded-full transition-all duration-300 ${
+                bannerIdx === i ? 'w-5 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-[rgba(255,255,255,0.2)]'
+              }`}
             />
           ))}
         </div>
