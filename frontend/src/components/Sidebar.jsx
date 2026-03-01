@@ -112,7 +112,7 @@ export function Sidebar({ collapsed }) {
               onClick={() => toggleGroup(group.id)}
               className="w-full flex items-center justify-between px-2 py-2 mb-0.5 hover:bg-transparent group"
             >
-              <span className="text-[#F0F0F0] font-medium text-[12px] uppercase tracking-wider">
+              <span className="text-[#F0F0F0] font-medium text-[12px] tracking-wider">
                 {group.label}
               </span>
               {expanded[group.id]
