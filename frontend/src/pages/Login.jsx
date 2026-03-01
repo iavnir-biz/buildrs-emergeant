@@ -65,9 +65,8 @@ export default function Login() {
       {/* Right column */}
       <div className="flex-1 flex flex-col items-center justify-center bg-[#0A0A0A] p-8">
         {/* Mobile logo */}
-        <div className="lg:hidden flex items-center gap-2 mb-10">
-          <div className="w-[7px] h-[7px] bg-[#F5F0E8] rounded-sm"></div>
-          <span className="text-white font-bold text-[24px]">Buildrs</span>
+        <div className="lg:hidden flex items-center mb-10">
+          <BuildrsLogo height={26} />
         </div>
 
         <div className="w-full max-w-[360px]">
