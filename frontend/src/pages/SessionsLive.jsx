@@ -45,7 +45,7 @@ export default function SessionsLive() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-[#F0F0F0] font-semibold text-[28px] mb-1">Sessions Live</h1>
+          <h1 className="text-[#F0F0F0] font-semibold text-[28px] mb-1">Coaching en groupe</h1>
           <p className="text-[rgba(255,255,255,0.5)] text-[15px]">
             Office hours, reviews de projets et bootcamps en direct avec Alfred
           </p>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Target, TrendingUp, Zap, Clock, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Target, TrendingUp, Zap } from 'lucide-react';
 
 const FEATURES = [
   {
@@ -22,40 +22,175 @@ const FEATURES = [
 const COACHES = [
   {
     name: 'Alfred Orsini',
+    slug: 'alfred',
     role: 'Fondateur Buildrs · Expert SaaS IA',
-    price: '120',
-    duration: '1h00',
-    bio: "Fondateur de Buildrs Lab, Alfred t'accompagne de l'idée au premier client. Spécialisé en SaaS IA, validation rapide et stratégie de monétisation. Plus de 50 builders accompagnés.",
     avatar: 'AO',
+    avatarBg: 'from-[#F5F0E8] to-[#D8CFC4]',
+    avatarText: '#0A0A0A',
     specialties: ['SaaS IA', 'Validation', 'Monétisation', 'Growth'],
-    calUrl: 'https://app.cal.com/alfred-orsini',
+    story:
+      "Fondateur de Buildrs Lab, Alfred accompagne les entrepreneurs de l'idée au premier client. Expert en SaaS IA, validation rapide et stratégie de monétisation, il a déjà aidé plus de 50 builders à lancer leur produit. Avec lui, pas de théorie : juste une méthode terrain, concrète et directement actionnée.",
+  },
+  {
+    name: 'Damien',
+    slug: 'damien',
+    role: 'Automation Specialist',
+    avatar: 'DA',
+    avatarBg: 'from-[#6366F1] to-[#4338CA]',
+    avatarText: '#ffffff',
+    specialties: ['Automation', 'Make', 'n8n', 'Zapier', 'Workflows'],
+    story:
+      "Damien est obsédé par l'automatisation. Avec plus de 7 ans à optimiser des workflows d'entreprises de toutes tailles, il transforme les tâches répétitives en systèmes intelligents. Son approche : identifier les points de friction, puis les éliminer définitivement grâce aux bons outils et à la bonne architecture.",
+  },
+  {
+    name: 'Clara',
+    slug: 'clara',
+    role: 'UX-UI Specialist',
+    avatar: 'CL',
+    avatarBg: 'from-[#EC4899] to-[#BE185D]',
+    avatarText: '#ffffff',
+    specialties: ['UX Research', 'UI Design', 'Figma', 'Conversion', 'Prototyping'],
+    story:
+      "Clara conçoit des expériences qui convertissent. Ancienne lead designer d'une scale-up parisienne, elle maîtrise l'art de transformer des interfaces complexes en parcours fluides et intuitifs. Sa philosophie : l'UX doit être invisible — si l'utilisateur ne la remarque pas, c'est qu'elle est parfaite.",
+  },
+  {
+    name: 'Matéo',
+    slug: 'mateo',
+    role: 'Brand Design Expert',
+    avatar: 'MT',
+    avatarBg: 'from-[#F59E0B] to-[#D97706]',
+    avatarText: '#ffffff',
+    specialties: ['Branding', 'Identité visuelle', 'Positionnement', 'Logo', 'Charte'],
+    story:
+      "Matéo crée des identités de marque qui marquent les esprits. Spécialisé dans le positionnement visuel des SaaS et startups tech, il sait traduire une vision en une esthétique cohérente, mémorable et différenciante. Travailler avec Matéo, c'est passer d'un simple produit à une vraie marque.",
+  },
+  {
+    name: 'Marc',
+    slug: 'marc',
+    role: 'Vibe Coder Expert',
+    avatar: 'MC',
+    avatarBg: 'from-[#10B981] to-[#059669]',
+    avatarText: '#ffffff',
+    specialties: ['Vibe Coding', 'Cursor', 'Claude', 'Ship fast', 'IA Dev'],
+    story:
+      "Marc incarne la nouvelle génération de développeurs : créatif, pragmatique, et toujours dans le flow. Expert en vibe coding avec les derniers LLMs, il t'aide à shipper plus vite avec l'IA comme co-pilote. Son mantra : le meilleur code est celui qu'on n'a pas besoin d'écrire.",
   },
 ];
 
+function CalEmbed({ slug }) {
+  const divId = `cal-inline-${slug}`;
+  const ns = `ns-${slug}`;
+
+  useEffect(() => {
+    // Initialize Cal.com embed (idempotent — safe to call multiple times)
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['initNamespace', namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    window.Cal('init', ns, { origin: 'https://app.cal.com' });
+    window.Cal.ns[ns]('inline', {
+      elementOrSelector: `#${divId}`,
+      config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true' },
+      calLink: 'team-buildrs/30min',
+    });
+    window.Cal.ns[ns]('ui', {
+      hideEventTypeDetails: false,
+      layout: 'month_view',
+    });
+  }, []);
+
+  return (
+    <div
+      id={divId}
+      style={{ width: '100%', height: '600px', overflow: 'scroll' }}
+    />
+  );
+}
+
+function CoachBlock({ coach }) {
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Coach card */}
+      <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-6">
+        {/* Avatar + name row */}
+        <div className="flex items-start gap-4 mb-4">
+          <div
+            className={`w-[64px] h-[64px] rounded-full bg-gradient-to-br ${coach.avatarBg} flex items-center justify-center font-bold text-[18px] flex-shrink-0`}
+            style={{ color: coach.avatarText }}
+          >
+            {coach.avatar}
+          </div>
+          <div className="flex-1 min-w-0 pt-1">
+            <h3 className="text-[#F0F0F0] font-semibold text-[17px] leading-tight">{coach.name}</h3>
+            <p className="text-[rgba(255,255,255,0.4)] text-[12px] mt-0.5 mb-2.5">{coach.role}</p>
+            <div className="flex flex-wrap gap-1.5">
+              {coach.specialties.map((sp, i) => (
+                <span
+                  key={i}
+                  className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[rgba(59,130,246,0.08)] text-[#3B82F6] border border-[rgba(59,130,246,0.18)]"
+                >
+                  {sp}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Storytelling */}
+        <p className="text-[rgba(255,255,255,0.55)] text-[13px] leading-relaxed">
+          {coach.story}
+        </p>
+      </div>
+
+      {/* Cal.com embed */}
+      <div className="bg-[#141414] border border-[#222222] rounded-[12px] overflow-hidden">
+        <div className="px-5 py-3 border-b border-[#222222]">
+          <h4 className="text-[#F0F0F0] font-semibold text-[13px]">
+            Réserver un appel avec {coach.name.split(' ')[0]}
+          </h4>
+        </div>
+        <CalEmbed slug={coach.slug} />
+      </div>
+    </div>
+  );
+}
+
 export default function CoachingAppel() {
-  const [currentCoach, setCurrentCoach] = useState(0);
-  const [showCal, setShowCal] = useState(false);
-
-  const coach = COACHES[currentCoach];
-
   return (
     <div className="animate-fade-in">
       {/* Header */}
-      <div className="flex items-start justify-between mb-7">
-        <div>
-          <h1 className="text-[#F0F0F0] font-semibold text-[28px] mb-1">Buildrs Hotline</h1>
-          <p className="text-[rgba(255,255,255,0.5)] text-[15px]">
-            Réservez un appel 1:1 avec l'un de nos experts
-          </p>
-        </div>
-        <span className="flex items-center gap-2 text-[13px] font-semibold px-3.5 py-2 rounded-[8px] bg-[#141414] border border-[#222222] text-[#F0F0F0] flex-shrink-0">
-          <Clock size={13} className="text-[rgba(255,255,255,0.4)]" />
-          1h00 &middot; {coach.price}€
-        </span>
+      <div className="mb-7">
+        <h1 className="text-[#F0F0F0] font-semibold text-[28px] mb-1">Buildrs Hotline</h1>
+        <p className="text-[rgba(255,255,255,0.5)] text-[15px]">
+          Réservez un appel 1:1 avec l'un de nos experts
+        </p>
       </div>
 
       {/* Value props */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
         {FEATURES.map((f, i) => {
           const Icon = f.icon;
           return (
@@ -71,132 +206,13 @@ export default function CoachingAppel() {
       </div>
 
       {/* Coaches section */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-[#F0F0F0] font-semibold text-[18px]">Nos coachs</h2>
-          <span className="text-[13px] font-semibold px-3 py-1 rounded-[6px] bg-[#141414] border border-[#222222] text-[rgba(255,255,255,0.65)]">
-            {coach.price}€ / session
-          </span>
+      <div>
+        <h2 className="text-[#F0F0F0] font-semibold text-[18px] mb-6">Nos coachs</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {COACHES.map(coach => (
+            <CoachBlock key={coach.slug} coach={coach} />
+          ))}
         </div>
-
-        {/* Coach card */}
-        <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-6">
-          {/* Navigation arrows for multiple coaches */}
-          {COACHES.length > 1 && (
-            <div className="flex justify-between mb-4">
-              <button
-                onClick={() => setCurrentCoach(prev => (prev - 1 + COACHES.length) % COACHES.length)}
-                className="p-1.5 rounded-[6px] border border-[#222222] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.8)] hover:border-[#2A2A2A] transition-colors"
-              >
-                <ChevronLeft size={14} />
-              </button>
-              <button
-                onClick={() => setCurrentCoach(prev => (prev + 1) % COACHES.length)}
-                className="p-1.5 rounded-[6px] border border-[#222222] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.8)] hover:border-[#2A2A2A] transition-colors"
-              >
-                <ChevronRight size={14} />
-              </button>
-            </div>
-          )}
-
-          <div className="flex items-start gap-5 mb-5">
-            <div className="w-16 h-16 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] font-bold text-[20px] flex-shrink-0">
-              {coach.avatar}
-            </div>
-            <div className="flex-1">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-[#F0F0F0] font-semibold text-[17px]">{coach.name}</h3>
-                  <p className="text-[rgba(255,255,255,0.4)] text-[12px] mt-0.5">{coach.role}</p>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <div className="text-[#F0F0F0] font-bold text-[22px]">{coach.price}€</div>
-                  <div className="text-[rgba(255,255,255,0.35)] text-[11px]">{coach.duration}</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
-                {coach.specialties.map((sp, i) => (
-                  <span
-                    key={i}
-                    className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[rgba(59,130,246,0.08)] text-[#3B82F6] border border-[rgba(59,130,246,0.18)]"
-                  >
-                    {sp}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <p className="text-[rgba(255,255,255,0.55)] text-[13px] leading-relaxed mb-5">{coach.bio}</p>
-
-          {/* Carousel dots */}
-          {COACHES.length > 1 && (
-            <div className="flex items-center justify-center gap-2 mb-4">
-              {COACHES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentCoach(i)}
-                  className={`rounded-full transition-all duration-200 ${
-                    i === currentCoach
-                      ? 'w-4 h-1.5 bg-[#F0F0F0]'
-                      : 'w-1.5 h-1.5 bg-[rgba(255,255,255,0.2)] hover:bg-[rgba(255,255,255,0.4)]'
-                  }`}
-                />
-              ))}
-            </div>
-          )}
-
-          <button
-            data-testid={`book-coach-${currentCoach}`}
-            onClick={() => setShowCal(true)}
-            className="btn-cream w-full flex items-center justify-center gap-2 text-[13px]"
-          >
-            Réserver avec {coach.name.split(' ')[0]} →
-          </button>
-        </div>
-      </div>
-
-      {/* Booking / Cal embed */}
-      <div className="bg-[#141414] border border-[#222222] rounded-[12px] overflow-hidden">
-        <div className="px-5 py-4 border-b border-[#222222] flex items-center justify-between">
-          <h3 className="text-[#F0F0F0] font-semibold text-[14px] flex items-center gap-2">
-            <Clock size={14} className="text-[rgba(255,255,255,0.4)]" strokeWidth={1.5} />
-            Calendrier de réservation
-          </h3>
-          <a
-            href={coach.calUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[12px] text-[rgba(255,255,255,0.35)] hover:text-[rgba(255,255,255,0.65)] transition-colors"
-          >
-            Ouvrir dans Cal.com <ExternalLink size={11} />
-          </a>
-        </div>
-
-        {showCal ? (
-          <div style={{ height: '520px' }}>
-            <iframe
-              src={`${coach.calUrl}?embed=true&theme=dark`}
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              title="Réserver un appel"
-              className="bg-[#141414]"
-            />
-          </div>
-        ) : (
-          <div className="h-[200px] flex flex-col items-center justify-center gap-4 p-6">
-            <div className="text-center">
-              <p className="text-[rgba(255,255,255,0.3)] text-[13px] mb-1">
-                Cliquez sur "Réserver" pour afficher les disponibilités
-              </p>
-              <p className="text-[rgba(255,255,255,0.18)] text-[12px]">Synchronisé avec Google Calendar</p>
-            </div>
-            <button onClick={() => setShowCal(true)} className="btn-secondary text-[12px]">
-              Afficher le calendrier
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
