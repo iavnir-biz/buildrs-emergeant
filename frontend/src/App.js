@@ -23,6 +23,7 @@ import BuildrsIA from './pages/BuildrsIA';
 import LabNotes from './pages/LabNotes';
 import SessionsLive from './pages/SessionsLive';
 import Forum from './pages/Forum';
+import Leaderboard from './pages/Leaderboard';
 import CarteBuilders from './pages/CarteBuilders';
 import Outils from './pages/Outils';
 import Parametres from './pages/Parametres';
@@ -93,6 +94,7 @@ const AppRouter = () => {
                 <Route path="/coaching/lab" element={<LabNotes />} />
                 <Route path="/coaching/session" element={<SessionsLive />} />
                 <Route path="/communaute/forum" element={<Forum />} />
+                <Route path="/communaute/leaderboard" element={<Leaderboard />} />
                 <Route path="/communaute/carte" element={<CarteBuilders />} />
                 <Route path="/outils" element={<Outils />} />
                 <Route path="/outils/generateur" element={<GenerateurIA />} />
