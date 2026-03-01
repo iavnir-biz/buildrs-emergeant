@@ -6,7 +6,7 @@ import {
   CheckSquare, Bookmark, Phone, Video, MessageCircle, MapPin,
   Users, Lightbulb, CheckCircle, DollarSign, TrendingUp,
   Calculator, Tag, ClipboardList, Clock, MessageSquare,
-  ExternalLink, ChevronUp, Minus, Plus, LogOut, Bot, FlaskConical
+  ExternalLink, ChevronUp, Minus, Plus, LogOut, Bot, FlaskConical, Trophy
 } from 'lucide-react';
 
 const SIDEBAR_GROUPS = [
@@ -41,8 +41,9 @@ const SIDEBAR_GROUPS = [
   {
     id: 'communaute', label: 'Communauté',
     items: [
-      { icon: MapPin, label: 'Carte des builders', path: '/communaute/carte' },
-      { icon: Users, label: 'Forum', path: '/communaute/forum' },
+      { icon: Users,   label: 'Forum',             path: '/communaute/forum'        },
+      { icon: Trophy,  label: 'Leaderboard',        path: '/communaute/leaderboard'  },
+      { icon: MapPin,  label: 'Carte des builders', path: '/communaute/carte'        },
     ]
   },
   {

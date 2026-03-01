@@ -18,6 +18,7 @@ const BREADCRUMBS = {
   '/coaching/session': ['Coaching', 'Coaching en groupe'],
   '/coaching/alfred': ['Coaching', 'Parler à Alfred'],
   '/communaute/forum': ['Communauté', 'Forum'],
+  '/communaute/leaderboard': ['Communauté', 'Leaderboard'],
   '/communaute/carte': ['Communauté', 'Carte des builders'],
   '/outils': ['Outils & Services', 'Index'],
   '/outils/generateur': ['Outils & Services', "Générateur d'idées"],
