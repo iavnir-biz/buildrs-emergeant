@@ -34,8 +34,8 @@ const SIDEBAR_GROUPS = [
     items: [
       { icon: MessageCircle, label: 'Parler à un coach', path: '/coaching/tickets' },
       { icon: Phone, label: 'Réserver un appel', path: '/coaching/appel' },
-      { icon: Bot, label: 'Buildrs IA', path: '/coaching/ia' },
-      { icon: FlaskConical, label: 'Lab Notes', path: '/coaching/lab' },
+      { icon: Bot, label: 'Discuter avec Buildrs IA', path: '/coaching/ia' },
+      { icon: FlaskConical, label: 'Buildrs Laboratoire', path: '/coaching/lab', badge: 'New' },
       { icon: Video, label: 'Sessions Live', path: '/coaching/session' },
     ]
   },
