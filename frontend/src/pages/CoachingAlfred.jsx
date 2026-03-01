@@ -126,8 +126,8 @@ function AlfredChat() {
       <div className="flex-1 bg-[#141414] border border-[#222222] rounded-[10px] flex flex-col overflow-hidden">
         {!activeSession ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-5 p-8">
-            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A]">
-              <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
+            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border border-[#333]">
+              <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/ac1mdrek_unnamed%20%286%29.jpg" alt="Alfred Orsini" className="w-full h-full object-cover object-top" />
             </div>
             <div className="text-center">
               <h3 className="text-[#F0F0F0] font-semibold text-[16px] mb-2">Alfred Orsini — Coach IA</h3>
