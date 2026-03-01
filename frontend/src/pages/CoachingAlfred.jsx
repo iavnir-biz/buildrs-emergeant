@@ -164,10 +164,10 @@ function AlfredChat() {
               ) : messages.map((msg) => (
                 <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div className={`w-7 h-7 rounded-full flex-shrink-0 overflow-hidden ${
-                    msg.role === 'assistant' ? 'border border-[#2A2A2A]' : 'bg-[#222222] flex items-center justify-center'
+                    msg.role === 'assistant' ? 'border border-[#333]' : 'bg-[#222222] flex items-center justify-center'
                   }`}>
                     {msg.role === 'assistant'
-                      ? <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="AI" className="w-full h-full object-cover" />
+                      ? <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/ac1mdrek_unnamed%20%286%29.jpg" alt="Alfred" className="w-full h-full object-cover object-top" />
                       : <User size={12} className="text-[rgba(255,255,255,0.7)]" />
                     }
                   </div>
