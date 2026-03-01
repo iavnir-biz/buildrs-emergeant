@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BuildrsLogo from './Logo';
 import {
   Home, Heart, FileText, BarChart2, BookOpen, Sparkles,
   CheckSquare, Bookmark, Phone, Video, MessageCircle, MapPin,
