@@ -6,7 +6,7 @@ import {
   CheckSquare, Bookmark, Phone, Video, MessageCircle, MapPin,
   Users, Lightbulb, CheckCircle, DollarSign, TrendingUp,
   Calculator, Tag, ClipboardList, Clock, MessageSquare,
-  ExternalLink, ChevronUp, Minus, Plus, LogOut
+  ExternalLink, ChevronUp, Minus, Plus, LogOut, Bot, FlaskConical
 } from 'lucide-react';
 
 const SIDEBAR_GROUPS = [
@@ -31,9 +31,11 @@ const SIDEBAR_GROUPS = [
   {
     id: 'coaching', label: 'Coaching',
     items: [
-      { icon: Phone, label: 'Appel stratégique', path: '/coaching/appel' },
-      { icon: Video, label: 'Session live', path: '/coaching/session' },
-      { icon: MessageCircle, label: 'Parler à Alfred', path: '/coaching/alfred' },
+      { icon: MessageCircle, label: 'Parler à un coach', path: '/coaching/tickets' },
+      { icon: Phone, label: 'Réserver un appel', path: '/coaching/appel' },
+      { icon: Bot, label: 'Buildrs IA', path: '/coaching/ia' },
+      { icon: FlaskConical, label: 'Lab Notes', path: '/coaching/lab' },
+      { icon: Video, label: 'Sessions Live', path: '/coaching/session' },
     ]
   },
   {
