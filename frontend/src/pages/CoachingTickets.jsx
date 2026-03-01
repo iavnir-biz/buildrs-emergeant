@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Plus, X, Send, ChevronRight, Bold, Italic, Underline, List, Smile, Paperclip, Image, Clock } from 'lucide-react';
+import { MessageCircle, Plus, X, Send, ChevronRight, Bold, Italic, Underline, List, Smile, Paperclip, Image, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '../context/AuthContext';
 
@@ -12,7 +12,50 @@ const CATEGORIES = [
   'Autre',
 ];
 
-const MOCK_COACH = { name: 'Alfred Orsini', role: 'Fondateur Buildrs', avatar: 'AO' };
+const COACHES = [
+  {
+    name: 'Alfred Orsini',
+    role: 'Fondateur Buildrs · Expert SaaS IA',
+    avatar: 'AO',
+    avatarBg: 'from-[#F5F0E8] to-[#D8CFC4]',
+    avatarText: '#0A0A0A',
+    specialties: ['SaaS IA', 'Validation', 'Monétisation', 'Growth'],
+  },
+  {
+    name: 'Damien',
+    role: 'Automation Specialist',
+    avatar: 'DA',
+    avatarBg: 'from-[#6366F1] to-[#4338CA]',
+    avatarText: '#ffffff',
+    specialties: ['Automation', 'Make', 'n8n', 'Zapier', 'Workflows'],
+  },
+  {
+    name: 'Clara',
+    role: 'UX-UI Specialist',
+    avatar: 'CL',
+    avatarBg: 'from-[#EC4899] to-[#BE185D]',
+    avatarText: '#ffffff',
+    specialties: ['UX Research', 'UI Design', 'Figma', 'Conversion', 'Prototyping'],
+  },
+  {
+    name: 'Matéo',
+    role: 'Brand Design Expert',
+    avatar: 'MT',
+    avatarBg: 'from-[#F59E0B] to-[#D97706]',
+    avatarText: '#ffffff',
+    specialties: ['Branding', 'Identité visuelle', 'Positionnement', 'Logo', 'Charte'],
+  },
+  {
+    name: 'Marc',
+    role: 'Vibe Coder Expert',
+    avatar: 'MC',
+    avatarBg: 'from-[#10B981] to-[#059669]',
+    avatarText: '#ffffff',
+    specialties: ['Vibe Coding', 'Cursor', 'Claude', 'Ship fast', 'IA Dev'],
+  },
+];
+
+const MOCK_COACH = COACHES[0];
 
 const MOCK_TICKETS = [
   {
@@ -84,6 +127,22 @@ const CategoryBadge = ({ category }) => (
   </span>
 );
 
+function CoachAvatar({ coach, size = 'sm' }) {
+  const sizes = {
+    sm: 'w-7 h-7 text-[9px]',
+    md: 'w-9 h-9 text-[11px]',
+    lg: 'w-11 h-11 text-[13px]',
+  };
+  return (
+    <div
+      className={`${sizes[size]} rounded-full bg-gradient-to-br ${coach.avatarBg} flex items-center justify-center font-bold flex-shrink-0`}
+      style={{ color: coach.avatarText }}
+    >
+      {coach.avatar}
+    </div>
+  );
+}
+
 function ConversationView({ ticket, onBack }) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState(MOCK_MESSAGES);
@@ -112,7 +171,7 @@ function ConversationView({ ticket, onBack }) {
   return (
     <div className="flex flex-col animate-fade-in" style={{ height: 'calc(100vh - 120px)' }}>
       {/* Breadcrumb header */}
-      <div className="flex items-center justify-between mb-5 flex-shrink-0">
+      <div className="flex items-center justify-between mb-4 flex-shrink-0">
         <div className="flex items-center gap-2 text-[13px]">
           <button
             onClick={onBack}
@@ -124,13 +183,44 @@ function ConversationView({ ticket, onBack }) {
           <span className="text-[#F0F0F0] font-medium">Ticket #{ticket.id}</span>
           <StatusBadge status={ticket.status} />
         </div>
-        <div className="flex items-center gap-2 text-[12px] text-[rgba(255,255,255,0.4)]">
-          <span>Assigné à</span>
-          <div className="flex items-center gap-1.5">
-            <div className="w-5 h-5 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[8px] font-bold">
-              {ticket.coach.avatar}
+      </div>
+
+      {/* Ticket info box */}
+      <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-4 mb-4 flex-shrink-0">
+        <div className="flex items-start gap-4">
+          <CoachAvatar coach={ticket.coach} size="lg" />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-[#F0F0F0] font-semibold text-[14px]">{ticket.coach.name}</span>
+              <span className="text-[rgba(255,255,255,0.2)]">·</span>
+              <span className="text-[rgba(255,255,255,0.45)] text-[12px]">{ticket.coach.role}</span>
             </div>
-            <span className="text-[rgba(255,255,255,0.7)]">{ticket.coach.name}</span>
+            {ticket.coach.specialties?.length > 0 && (
+              <div className="flex gap-1 flex-wrap mt-2">
+                {ticket.coach.specialties.map(s => (
+                  <span
+                    key={s}
+                    className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[rgba(255,255,255,0.05)] border border-[#272727] text-[rgba(255,255,255,0.4)]"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col items-end gap-2 flex-shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="text-[rgba(255,255,255,0.3)] text-[11px]">{ticket.id}</span>
+              <StatusBadge status={ticket.status} />
+            </div>
+            <CategoryBadge category={ticket.category} />
+            <span className="text-[rgba(255,255,255,0.3)] text-[11px]">
+              {new Date(ticket.created_at).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
+            </span>
           </div>
         </div>
       </div>
@@ -150,11 +240,7 @@ function ConversationView({ ticket, onBack }) {
 
           {messages.map(msg => (
             <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-              {msg.role === 'coach' && (
-                <div className="w-8 h-8 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[10px] font-bold flex-shrink-0 mt-0.5">
-                  {ticket.coach.avatar}
-                </div>
-              )}
+              {msg.role === 'coach' && <CoachAvatar coach={ticket.coach} size="md" />}
               <div className={`max-w-[72%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : ''}`}>
                 {msg.role === 'coach' && (
                   <span className="text-[11px] text-[rgba(255,255,255,0.4)] px-1">{msg.author}</span>
@@ -251,9 +337,7 @@ function TicketCard({ ticket, onClick }) {
         </div>
         <div className="flex flex-col items-end gap-2 flex-shrink-0">
           <div className="flex items-center gap-1.5">
-            <div className="w-5 h-5 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[7px] font-bold">
-              {ticket.coach.avatar}
-            </div>
+            <CoachAvatar coach={ticket.coach} size="sm" />
             <span className="text-[rgba(255,255,255,0.35)] text-[11px]">{ticket.coach.name}</span>
           </div>
           <span className="text-[rgba(255,255,255,0.3)] text-[11px] group-hover:text-[rgba(255,255,255,0.6)] transition-colors">
@@ -265,16 +349,101 @@ function TicketCard({ ticket, onClick }) {
   );
 }
 
+function CoachSelector({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClick = e => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    if (open) document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className={`w-full flex items-center justify-between gap-3 bg-[#0A0A0A] border rounded-[8px] px-3 py-2.5 transition-colors ${
+          open ? 'border-[rgba(245,240,232,0.3)]' : 'border-[#222222] hover:border-[#333333]'
+        }`}
+      >
+        {value ? (
+          <div className="flex items-center gap-2.5 min-w-0">
+            <CoachAvatar coach={value} size="sm" />
+            <div className="text-left min-w-0">
+              <div className="text-[#F0F0F0] text-[13px] font-medium truncate">{value.name}</div>
+              <div className="text-[rgba(255,255,255,0.4)] text-[11px] truncate">{value.role}</div>
+            </div>
+          </div>
+        ) : (
+          <span className="text-[rgba(255,255,255,0.25)] text-[13px]">Choisir un coach...</span>
+        )}
+        <ChevronDown
+          size={14}
+          className={`text-[rgba(255,255,255,0.3)] flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-0 right-0 mt-1.5 bg-[#111111] border border-[#2A2A2A] rounded-[10px] overflow-hidden z-20 shadow-2xl">
+          {COACHES.map(coach => (
+            <button
+              key={coach.name}
+              type="button"
+              onClick={() => {
+                onChange(coach);
+                setOpen(false);
+              }}
+              className={`w-full flex items-start gap-3 px-3 py-2.5 hover:bg-[rgba(255,255,255,0.04)] transition-colors text-left border-b border-[#1A1A1A] last:border-0 ${
+                value?.name === coach.name ? 'bg-[rgba(255,255,255,0.04)]' : ''
+              }`}
+            >
+              <CoachAvatar coach={coach} size="md" />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[#F0F0F0] text-[13px] font-medium">{coach.name}</span>
+                  {value?.name === coach.name && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] flex-shrink-0" />
+                  )}
+                </div>
+                <div className="text-[rgba(255,255,255,0.4)] text-[11px] mb-1.5">{coach.role}</div>
+                <div className="flex gap-1 flex-wrap">
+                  {coach.specialties.slice(0, 3).map(s => (
+                    <span
+                      key={s}
+                      className="text-[9px] px-1.5 py-0.5 rounded-[3px] bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.4)]"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                  {coach.specialties.length > 3 && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded-[3px] bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.35)]">
+                      +{coach.specialties.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CoachingTickets() {
   const { user } = useAuth();
   const [tickets, setTickets] = useState(MOCK_TICKETS);
   const [showModal, setShowModal] = useState(false);
   const [activeTicket, setActiveTicket] = useState(null);
-  const [form, setForm] = useState({ title: '', category: '' });
+  const [form, setForm] = useState({ title: '', category: '', coach: null });
   const [submitting, setSubmitting] = useState(false);
 
   const handleCreate = async () => {
-    if (!form.title || !form.category) return;
+    if (!form.title || !form.category || !form.coach) return;
     setSubmitting(true);
     await new Promise(r => setTimeout(r, 500));
     const newTicket = {
@@ -282,13 +451,13 @@ export default function CoachingTickets() {
       title: form.title,
       category: form.category,
       status: 'open',
-      coach: MOCK_COACH,
+      coach: form.coach,
       created_at: new Date().toISOString(),
       messages_count: 0,
       last_message: null,
     };
     setTickets(prev => [newTicket, ...prev]);
-    setForm({ title: '', category: '' });
+    setForm({ title: '', category: '', coach: null });
     setShowModal(false);
     setSubmitting(false);
     toast.success('Ticket créé avec succès');
@@ -431,6 +600,12 @@ export default function CoachingTickets() {
                   ))}
                 </select>
               </div>
+              <div>
+                <label className="text-[rgba(255,255,255,0.45)] text-[11px] uppercase tracking-wider mb-1.5 block">
+                  Coach
+                </label>
+                <CoachSelector value={form.coach} onChange={coach => setForm(p => ({ ...p, coach }))} />
+              </div>
               <div className="flex justify-end gap-2 pt-1">
                 <button onClick={() => setShowModal(false)} className="btn-secondary text-[13px]">
                   Annuler
@@ -438,7 +613,7 @@ export default function CoachingTickets() {
                 <button
                   data-testid="submit-ticket-btn"
                   onClick={handleCreate}
-                  disabled={submitting || !form.title || !form.category}
+                  disabled={submitting || !form.title || !form.category || !form.coach}
                   className="btn-cream disabled:opacity-40 flex items-center gap-2 text-[13px]"
                 >
                   {submitting && (
