@@ -238,8 +238,8 @@ export default function BuildrsIA() {
           {!activeSession ? (
             /* Empty state */
             <div className="flex-1 flex flex-col items-center justify-center gap-5 p-8">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] flex items-center justify-center text-white font-bold text-[18px] shadow-lg">
-                IA
+              <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A]">
+                <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
               </div>
               <div className="text-center">
                 <h3 className="text-[#F0F0F0] font-semibold text-[16px] mb-2">Assistant Buildrs AI</h3>
@@ -259,8 +259,8 @@ export default function BuildrsIA() {
               {/* Chat header — current session title */}
               <div className="border-b border-[#222222] px-4 py-3 flex-shrink-0 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0">
-                    IA
+                  <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A]">
+                    <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
                   </div>
                   <span className="text-[#F0F0F0] text-[13px] font-medium truncate max-w-[280px]">
                     {activeSession.title || 'Nouvelle conversation'}
