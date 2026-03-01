@@ -143,7 +143,9 @@ function AlfredChat() {
           <>
             {/* Header */}
             <div className="border-b border-[#222222] px-4 py-3 flex items-center gap-3 flex-shrink-0">
-              <div className="w-7 h-7 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[10px] font-bold flex-shrink-0">AO</div>
+              <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A]">
+                <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
+              </div>
               <div>
                 <div className="text-[#F0F0F0] font-medium text-[13px]">Alfred Orsini</div>
                 <div className="flex items-center gap-1.5">
@@ -177,7 +179,9 @@ function AlfredChat() {
               ))}
               {sending && (
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[10px] font-bold flex-shrink-0">AO</div>
+                  <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A]">
+                <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
+              </div>
                   <div className="bg-[#1A1A1A] border border-[#222222] px-4 py-3 rounded-[10px] flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[rgba(255,255,255,0.4)] animate-bounce" style={{ animationDelay: '0ms' }}></span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[rgba(255,255,255,0.4)] animate-bounce" style={{ animationDelay: '150ms' }}></span>
