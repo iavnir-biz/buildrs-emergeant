@@ -1,6 +1,5 @@
 import React from 'react';
-import { ArrowRight, Lock, RefreshCw } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { ArrowRight, RefreshCw } from 'lucide-react';
 
 // SaaS avec des couleurs de gradient pour simuler les screenshots
 const SAAS_OF_THE_WEEK = [
@@ -92,22 +91,13 @@ function SaasCard({ saas }) {
 }
 
 export default function LabNotes() {
-  const { user } = useAuth();
-  const isLocked = user?.plan === 'Starter';
   const daysUntilUpdate = getDaysUntilNextMonday();
 
   return (
     <div className="animate-fade-in">
       {/* Header */}
       <div className="mb-7">
-        <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-[#F0F0F0] font-semibold text-[28px]">Lab Notes</h1>
-          {isLocked && (
-            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-[6px] bg-[rgba(245,240,232,0.07)] text-[#F5F0E8] border border-[rgba(245,240,232,0.15)]">
-              Plus
-            </span>
-          )}
-        </div>
+        <h1 className="text-[#F0F0F0] font-semibold text-[28px] mb-2">Buildrs Lab</h1>
         <p className="text-[rgba(255,255,255,0.5)] text-[14px] max-w-xl leading-relaxed">
           Accédez aux{' '}
           <strong className="text-[rgba(255,255,255,0.8)] font-semibold">contenus exclusifs</strong> partagés
@@ -120,64 +110,41 @@ export default function LabNotes() {
       </div>
 
       {/* Alfred card */}
-      {isLocked ? (
-        <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-10 text-center mb-7">
-          <div className="w-14 h-14 rounded-full bg-[#1A1A1A] border border-[#222222] flex items-center justify-center mx-auto mb-4">
-            <Lock size={20} className="text-[rgba(255,255,255,0.22)]" />
-          </div>
-          <h3 className="text-[#F0F0F0] font-semibold text-[17px] mb-2">Contenu Plus</h3>
-          <p className="text-[rgba(255,255,255,0.42)] text-[13px] max-w-sm mx-auto mb-6 leading-relaxed">
-            Les Lab Notes sont réservées aux membres Plus. Accédez aux coulisses, décisions et chiffres réels de
-            Buildrs.
-          </p>
-          <button className="btn-cream flex items-center gap-2 mx-auto text-[13px]">
-            Passer au plan Plus →
-          </button>
-        </div>
-      ) : (
-        <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-6 mb-7">
-          <div className="flex items-start gap-5">
-            {/* Avatar */}
-            <div className="flex-shrink-0">
-              <div className="w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[#F5F0E8] to-[#D8CFC4] flex items-center justify-center text-[#0A0A0A] font-bold text-[22px] shadow-sm">
-                AO
-              </div>
+      <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-6 mb-7">
+        <div className="flex items-start gap-5">
+          {/* Avatar */}
+          <div className="flex-shrink-0">
+            <div className="w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[#F5F0E8] to-[#D8CFC4] flex items-center justify-center text-[#0A0A0A] font-bold text-[22px] shadow-sm">
+              AO
             </div>
+          </div>
 
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-[#F0F0F0] font-semibold text-[18px] leading-tight">Alfred Orsini</h2>
-              <p className="text-[rgba(255,255,255,0.38)] text-[12px] mt-0.5 mb-3">
-                Fondateur Buildrs · Builder SaaS IA
-              </p>
-              <p className="text-[rgba(255,255,255,0.58)] text-[13px] leading-relaxed mb-4">
-                Je partage ici les coulisses de Buildrs — les vraies décisions, les chiffres, les erreurs et les
-                succès. Pas de storytelling poli, juste la réalité du terrain pour construire des SaaS IA.
-              </p>
-              <button className="flex items-center gap-1.5 text-[#F0F0F0] text-[13px] font-medium hover:text-[rgba(255,255,255,0.6)] transition-colors group">
-                Accéder aux notes
-                <ArrowRight
-                  size={14}
-                  className="group-hover:translate-x-0.5 transition-transform duration-200"
-                />
-              </button>
-            </div>
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <h2 className="text-[#F0F0F0] font-semibold text-[18px] leading-tight">Alfred Orsini</h2>
+            <p className="text-[rgba(255,255,255,0.38)] text-[12px] mt-0.5 mb-3">
+              Fondateur Buildrs · Builder SaaS IA
+            </p>
+            <p className="text-[rgba(255,255,255,0.58)] text-[13px] leading-relaxed mb-4">
+              Je partage ici les coulisses de Buildrs — les vraies décisions, les chiffres, les erreurs et les
+              succès. Pas de storytelling poli, juste la réalité du terrain pour construire des SaaS IA.
+            </p>
+            <button className="flex items-center gap-1.5 text-[#F0F0F0] text-[13px] font-medium hover:text-[rgba(255,255,255,0.6)] transition-colors group">
+              Accéder aux notes
+              <ArrowRight
+                size={14}
+                className="group-hover:translate-x-0.5 transition-transform duration-200"
+              />
+            </button>
           </div>
         </div>
-      )}
+      </div>
 
       {/* SaaS de la semaine */}
       <div>
         <div className="flex items-start justify-between gap-4 mb-2">
           <div>
-            <div className="flex items-center gap-2.5 mb-1">
-              <h2 className="text-[#F0F0F0] font-semibold text-[17px]">SaaS de la semaine</h2>
-              {isLocked && (
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-[5px] bg-[rgba(245,240,232,0.07)] text-[#F5F0E8] border border-[rgba(245,240,232,0.15)]">
-                  Plus
-                </span>
-              )}
-            </div>
+            <h2 className="text-[#F0F0F0] font-semibold text-[17px] mb-1">SaaS de la semaine</h2>
             <p className="text-[rgba(255,255,255,0.35)] text-[12px]">
               {SAAS_OF_THE_WEEK.length} SaaS inspirants sélectionnés par Alfred pour booster ta créativité.
             </p>
@@ -188,21 +155,11 @@ export default function LabNotes() {
           </span>
         </div>
 
-        <div
-          className={`grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 ${
-            isLocked ? 'opacity-40 pointer-events-none select-none' : ''
-          }`}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
           {SAAS_OF_THE_WEEK.map((saas, i) => (
             <SaasCard key={i} saas={saas} />
           ))}
         </div>
-
-        {isLocked && (
-          <p className="text-center text-[rgba(255,255,255,0.22)] text-[12px] mt-4">
-            Passez au plan Plus pour accéder à la sélection complète
-          </p>
-        )}
       </div>
     </div>
   );

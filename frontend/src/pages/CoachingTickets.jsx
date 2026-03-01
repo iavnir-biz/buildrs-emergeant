@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Plus, X, Lock, Send, ChevronRight, Bold, Italic, Underline, List, Smile, Paperclip, Image, Clock } from 'lucide-react';
+import { MessageCircle, Plus, X, Send, ChevronRight, Bold, Italic, Underline, List, Smile, Paperclip, Image, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '../context/AuthContext';
 
@@ -273,8 +273,6 @@ export default function CoachingTickets() {
   const [form, setForm] = useState({ title: '', category: '' });
   const [submitting, setSubmitting] = useState(false);
 
-  const isLocked = user?.plan === 'Starter';
-
   const handleCreate = async () => {
     if (!form.title || !form.category) return;
     setSubmitting(true);
@@ -319,83 +317,67 @@ export default function CoachingTickets() {
         </span>
       </div>
 
-      {isLocked ? (
+      {/* Action bar */}
+      <div className="flex items-center justify-between mb-5">
+        <p className="text-[rgba(255,255,255,0.4)] text-[13px]">
+          {openTickets.length} ticket{openTickets.length !== 1 ? 's' : ''} ouvert
+          {openTickets.length !== 1 ? 's' : ''}
+        </p>
+        <button
+          data-testid="new-ticket-btn"
+          onClick={() => setShowModal(true)}
+          className="btn-cream flex items-center gap-2 text-[13px]"
+        >
+          <Plus size={14} /> Ouvrir un ticket
+        </button>
+      </div>
+
+      {/* Empty state */}
+      {tickets.length === 0 && (
         <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-12 text-center">
-          <div className="w-14 h-14 rounded-full bg-[#1A1A1A] border border-[#222222] flex items-center justify-center mx-auto mb-4">
-            <Lock size={20} className="text-[rgba(255,255,255,0.25)]" />
+          <div className="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center mx-auto mb-4">
+            <MessageCircle size={18} className="text-[rgba(255,255,255,0.2)]" />
           </div>
-          <h3 className="text-[#F0F0F0] font-semibold text-[17px] mb-2">Accès Niveau 3 requis</h3>
-          <p className="text-[rgba(255,255,255,0.45)] text-[13px] max-w-sm mx-auto mb-6">
-            Cette fonctionnalité est disponible à partir du niveau Pro. Upgradez votre plan pour accéder au coaching
-            personnalisé.
+          <p className="text-[rgba(255,255,255,0.35)] text-[14px] mb-1">Aucun ticket ouvert</p>
+          <p className="text-[rgba(255,255,255,0.2)] text-[12px] mb-5">
+            Crée ton premier ticket pour obtenir une aide personnalisée
           </p>
-          <button className="btn-cream flex items-center gap-2 mx-auto">Upgrader mon plan →</button>
+          <button
+            onClick={() => setShowModal(true)}
+            className="btn-cream flex items-center gap-2 mx-auto text-[13px]"
+          >
+            <Plus size={14} /> Ouvrir un ticket
+          </button>
         </div>
-      ) : (
-        <>
-          {/* Action bar */}
-          <div className="flex items-center justify-between mb-5">
-            <p className="text-[rgba(255,255,255,0.4)] text-[13px]">
-              {openTickets.length} ticket{openTickets.length !== 1 ? 's' : ''} ouvert
-              {openTickets.length !== 1 ? 's' : ''}
-            </p>
-            <button
-              data-testid="new-ticket-btn"
-              onClick={() => setShowModal(true)}
-              className="btn-cream flex items-center gap-2 text-[13px]"
-            >
-              <Plus size={14} /> Ouvrir un ticket
-            </button>
-          </div>
+      )}
 
-          {/* Empty state */}
-          {tickets.length === 0 && (
-            <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-12 text-center">
-              <div className="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center mx-auto mb-4">
-                <MessageCircle size={18} className="text-[rgba(255,255,255,0.2)]" />
+      {/* Tickets list */}
+      {tickets.length > 0 && (
+        <div className="space-y-6">
+          {openTickets.length > 0 && (
+            <div>
+              <h2 className="text-[rgba(255,255,255,0.4)] text-[11px] uppercase tracking-wider mb-3">
+                Tickets ouverts
+              </h2>
+              <div className="space-y-3">
+                {openTickets.map(ticket => (
+                  <TicketCard key={ticket.id} ticket={ticket} onClick={() => setActiveTicket(ticket)} />
+                ))}
               </div>
-              <p className="text-[rgba(255,255,255,0.35)] text-[14px] mb-1">Aucun ticket ouvert</p>
-              <p className="text-[rgba(255,255,255,0.2)] text-[12px] mb-5">
-                Crée ton premier ticket pour obtenir une aide personnalisée
-              </p>
-              <button
-                onClick={() => setShowModal(true)}
-                className="btn-cream flex items-center gap-2 mx-auto text-[13px]"
-              >
-                <Plus size={14} /> Ouvrir un ticket
-              </button>
             </div>
           )}
 
-          {/* Tickets list */}
-          {tickets.length > 0 && (
-            <div className="space-y-6">
-              {openTickets.length > 0 && (
-                <div>
-                  <h2 className="text-[rgba(255,255,255,0.4)] text-[11px] uppercase tracking-wider mb-3">
-                    Tickets ouverts
-                  </h2>
-                  <div className="space-y-3">
-                    {openTickets.map(ticket => (
-                      <TicketCard key={ticket.id} ticket={ticket} onClick={() => setActiveTicket(ticket)} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {closedTickets.length > 0 && (
-                <div>
-                  <h2 className="text-[rgba(255,255,255,0.4)] text-[11px] uppercase tracking-wider mb-3">Historique</h2>
-                  <div className="space-y-3">
-                    {closedTickets.map(ticket => (
-                      <TicketCard key={ticket.id} ticket={ticket} onClick={() => setActiveTicket(ticket)} />
-                    ))}
-                  </div>
-                </div>
-              )}
+          {closedTickets.length > 0 && (
+            <div>
+              <h2 className="text-[rgba(255,255,255,0.4)] text-[11px] uppercase tracking-wider mb-3">Historique</h2>
+              <div className="space-y-3">
+                {closedTickets.map(ticket => (
+                  <TicketCard key={ticket.id} ticket={ticket} onClick={() => setActiveTicket(ticket)} />
+                ))}
+              </div>
             </div>
           )}
-        </>
+        </div>
       )}
 
       {/* Create ticket modal */}
