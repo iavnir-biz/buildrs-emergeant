@@ -34,7 +34,7 @@ export default function Login() {
         <div className="relative z-10">
           {/* Logo */}
           <div className="flex items-center mb-16">
-            <BuildrsLogo contentHeight={34} />
+            <BuildrsLogo height={34} />
           </div>
           {/* Quote */}
           <div className="max-w-md">
@@ -66,7 +66,7 @@ export default function Login() {
       <div className="flex-1 flex flex-col items-center justify-center bg-[#0A0A0A] p-8">
         {/* Mobile logo */}
         <div className="lg:hidden flex items-center mb-10">
-          <BuildrsLogo contentHeight={22} />
+          <BuildrsLogo height={26} />
         </div>
 
         <div className="w-full max-w-[360px]">
