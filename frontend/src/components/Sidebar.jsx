@@ -44,6 +44,7 @@ const SIDEBAR_GROUPS = [
     items: [
       { icon: MapPin, label: 'Carte des builders', path: '/communaute/carte' },
       { icon: Users, label: 'Forum', path: '/communaute/forum' },
+      { icon: Trophy, label: 'Leaderboard', path: '/communaute/leaderboard' },
     ]
   },
   {
