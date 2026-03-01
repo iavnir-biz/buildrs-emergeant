@@ -114,8 +114,8 @@ export default function LabNotes() {
         <div className="flex items-start gap-5">
           {/* Avatar */}
           <div className="flex-shrink-0">
-            <div className="w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[#F5F0E8] to-[#D8CFC4] flex items-center justify-center text-[#0A0A0A] font-bold text-[22px] shadow-sm">
-              AO
+            <div className="w-[72px] h-[72px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2A2A2A] shadow-sm">
+              <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/ac1mdrek_unnamed%20%286%29.jpg" alt="Alfred Orsini" className="w-full h-full object-cover object-top" />
             </div>
           </div>
 

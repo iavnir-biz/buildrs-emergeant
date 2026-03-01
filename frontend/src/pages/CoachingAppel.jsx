@@ -24,7 +24,7 @@ const COACHES = [
     name: 'Alfred Orsini',
     slug: 'alfred',
     role: 'Fondateur Buildrs · Expert SaaS IA',
-    photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?fit=crop&w=128&h=128&q=90&crop=faces',
+    photo: 'https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/ac1mdrek_unnamed%20%286%29.jpg',
     price: 190,
     specialties: ['SaaS IA', 'Validation', 'Monétisation', 'Growth'],
     story:
