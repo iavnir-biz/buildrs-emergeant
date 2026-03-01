@@ -24,9 +24,8 @@ const COACHES = [
     name: 'Alfred Orsini',
     slug: 'alfred',
     role: 'Fondateur Buildrs · Expert SaaS IA',
-    avatar: 'AO',
-    avatarBg: 'from-[#F5F0E8] to-[#D8CFC4]',
-    avatarText: '#0A0A0A',
+    photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?fit=crop&w=128&h=128&q=90&crop=faces',
+    price: 190,
     specialties: ['SaaS IA', 'Validation', 'Monétisation', 'Growth'],
     story:
       "Fondateur de Buildrs Lab, Alfred accompagne les entrepreneurs de l'idée au premier client. Expert en SaaS IA, validation rapide et stratégie de monétisation, il a déjà aidé plus de 50 builders à lancer leur produit. Avec lui, pas de théorie : juste une méthode terrain, concrète et directement actionnée.",
@@ -35,9 +34,8 @@ const COACHES = [
     name: 'Damien',
     slug: 'damien',
     role: 'Automation Specialist',
-    avatar: 'DA',
-    avatarBg: 'from-[#6366F1] to-[#4338CA]',
-    avatarText: '#ffffff',
+    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?fit=crop&w=128&h=128&q=90&crop=faces',
+    price: 90,
     specialties: ['Automation', 'Make', 'n8n', 'Zapier', 'Workflows'],
     story:
       "Damien est obsédé par l'automatisation. Avec plus de 7 ans à optimiser des workflows d'entreprises de toutes tailles, il transforme les tâches répétitives en systèmes intelligents. Son approche : identifier les points de friction, puis les éliminer définitivement grâce aux bons outils et à la bonne architecture.",
@@ -46,9 +44,8 @@ const COACHES = [
     name: 'Clara',
     slug: 'clara',
     role: 'UX-UI Specialist',
-    avatar: 'CL',
-    avatarBg: 'from-[#EC4899] to-[#BE185D]',
-    avatarText: '#ffffff',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=128&h=128&q=90&crop=faces',
+    price: 90,
     specialties: ['UX Research', 'UI Design', 'Figma', 'Conversion', 'Prototyping'],
     story:
       "Clara conçoit des expériences qui convertissent. Ancienne lead designer d'une scale-up parisienne, elle maîtrise l'art de transformer des interfaces complexes en parcours fluides et intuitifs. Sa philosophie : l'UX doit être invisible — si l'utilisateur ne la remarque pas, c'est qu'elle est parfaite.",
@@ -57,9 +54,8 @@ const COACHES = [
     name: 'Matéo',
     slug: 'mateo',
     role: 'Brand Design Expert',
-    avatar: 'MT',
-    avatarBg: 'from-[#F59E0B] to-[#D97706]',
-    avatarText: '#ffffff',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=128&h=128&q=90&crop=faces',
+    price: 90,
     specialties: ['Branding', 'Identité visuelle', 'Positionnement', 'Logo', 'Charte'],
     story:
       "Matéo crée des identités de marque qui marquent les esprits. Spécialisé dans le positionnement visuel des SaaS et startups tech, il sait traduire une vision en une esthétique cohérente, mémorable et différenciante. Travailler avec Matéo, c'est passer d'un simple produit à une vraie marque.",
@@ -68,9 +64,8 @@ const COACHES = [
     name: 'Marc',
     slug: 'marc',
     role: 'Vibe Coder Expert',
-    avatar: 'MC',
-    avatarBg: 'from-[#10B981] to-[#059669]',
-    avatarText: '#ffffff',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=128&h=128&q=90&crop=faces',
+    price: 90,
     specialties: ['Vibe Coding', 'Cursor', 'Claude', 'Ship fast', 'IA Dev'],
     story:
       "Marc incarne la nouvelle génération de développeurs : créatif, pragmatique, et toujours dans le flow. Expert en vibe coding avec les derniers LLMs, il t'aide à shipper plus vite avec l'IA comme co-pilote. Son mantra : le meilleur code est celui qu'on n'a pas besoin d'écrire.",
@@ -131,21 +126,54 @@ function CalEmbed({ slug }) {
 }
 
 function CoachBlock({ coach }) {
+  const isPremium = coach.price === 190;
+  const priceColor = isPremium ? '#F59E0B' : '#3B82F6';
+  const priceBg = isPremium ? 'rgba(245,158,11,0.08)' : 'rgba(59,130,246,0.08)';
+  const priceBorder = isPremium ? 'rgba(245,158,11,0.25)' : 'rgba(59,130,246,0.18)';
+
   return (
     <div className="flex flex-col gap-4">
+      {/* Price line above block */}
+      <div className="flex items-center gap-3">
+        <div className="h-px flex-1 bg-[#222222]" />
+        <span
+          className="text-[11px] font-semibold tracking-wide px-2.5 py-0.5 rounded-full border"
+          style={{ color: priceColor, backgroundColor: priceBg, borderColor: priceBorder }}
+        >
+          {coach.price}€ / heure
+        </span>
+        <div className="h-px flex-1 bg-[#222222]" />
+      </div>
+
       {/* Coach card */}
       <div className="bg-[#141414] border border-[#222222] rounded-[12px] p-6">
         {/* Avatar + name row */}
         <div className="flex items-start gap-4 mb-4">
-          <div
-            className={`w-[64px] h-[64px] rounded-full bg-gradient-to-br ${coach.avatarBg} flex items-center justify-center font-bold text-[18px] flex-shrink-0`}
-            style={{ color: coach.avatarText }}
-          >
-            {coach.avatar}
-          </div>
+          {/* Real photo */}
+          <img
+            src={coach.photo}
+            alt={coach.name}
+            className="w-[64px] h-[64px] rounded-full object-cover flex-shrink-0 border border-[#333333]"
+          />
           <div className="flex-1 min-w-0 pt-1">
-            <h3 className="text-[#F0F0F0] font-semibold text-[17px] leading-tight">{coach.name}</h3>
-            <p className="text-[rgba(255,255,255,0.4)] text-[12px] mt-0.5 mb-2.5">{coach.role}</p>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-[#F0F0F0] font-semibold text-[17px] leading-tight">{coach.name}</h3>
+                <p className="text-[rgba(255,255,255,0.4)] text-[12px] mt-0.5 mb-2.5">{coach.role}</p>
+              </div>
+              {/* Price badge (right) */}
+              <div
+                className="flex-shrink-0 rounded-[8px] px-3 py-1.5 text-center border"
+                style={{ backgroundColor: priceBg, borderColor: priceBorder }}
+              >
+                <div className="font-bold text-[16px] leading-tight" style={{ color: priceColor }}>
+                  {coach.price}€
+                </div>
+                <div className="text-[10px] leading-tight" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  /heure
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {coach.specialties.map((sp, i) => (
                 <span
