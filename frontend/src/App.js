@@ -18,6 +18,10 @@ import PlanAction from './pages/PlanAction';
 import Ressources from './pages/Ressources';
 import CoachingAppel from './pages/CoachingAppel';
 import CoachingAlfred from './pages/CoachingAlfred';
+import CoachingTickets from './pages/CoachingTickets';
+import BuildrsIA from './pages/BuildrsIA';
+import LabNotes from './pages/LabNotes';
+import SessionsLive from './pages/SessionsLive';
 import Forum from './pages/Forum';
 import CarteBuilders from './pages/CarteBuilders';
 import Outils from './pages/Outils';
@@ -84,6 +88,10 @@ const AppRouter = () => {
                 <Route path="/ressources" element={<Ressources />} />
                 <Route path="/coaching/appel" element={<CoachingAppel />} />
                 <Route path="/coaching/alfred" element={<CoachingAlfred />} />
+                <Route path="/coaching/tickets" element={<CoachingTickets />} />
+                <Route path="/coaching/ia" element={<BuildrsIA />} />
+                <Route path="/coaching/lab" element={<LabNotes />} />
+                <Route path="/coaching/session" element={<SessionsLive />} />
                 <Route path="/communaute/forum" element={<Forum />} />
                 <Route path="/communaute/carte" element={<CarteBuilders />} />
                 <Route path="/outils" element={<Outils />} />
