@@ -64,9 +64,8 @@ export default function Onboarding() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center px-4 py-10" style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-10">
-        <div className="w-[7px] h-[7px] bg-[#F5F0E8] rounded-sm"></div>
-        <span className="text-white font-bold text-[20px]">Buildrs</span>
+      <div className="flex items-center mb-10">
+        <BuildrsLogo height={26} />
       </div>
 
       {/* Progress */}
