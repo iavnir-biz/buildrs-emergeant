@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/l0v9g12h_Logo%20Buildrs%20%28500%20x%20200%20px%29.png';
+const LOGO_URL = 'https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/042c2aen_Logo%20Buildrs%20%28500%20x%20200%20px%29%20%281%29.png';
 
 /**
  * BuildrsLogo — logo officiel Buildrs (500×200px, fond noir)
