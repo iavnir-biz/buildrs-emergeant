@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import { CheckCircle } from 'lucide-react';
+import BuildrsLogo from '../components/Logo';
 
 const STEP1_OPTIONS = [
   { id: 'salarie', label: 'Salarié', desc: 'Je travaille en entreprise et veux un revenu complémentaire' },

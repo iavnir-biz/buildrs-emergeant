@@ -2,6 +2,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
+import BuildrsLogo from '../components/Logo';
 
 export default function Login() {
   const { user, loading } = useAuth();
