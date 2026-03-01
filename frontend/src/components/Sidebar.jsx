@@ -137,7 +137,13 @@ export function Sidebar({ collapsed }) {
                       }`}
                     >
                       <Icon size={14} strokeWidth={active ? 2 : 1.5} />
-                      <span className="text-[13px] font-medium">{item.label}</span>
+                      <span className="text-[13px] font-medium flex-1 truncate">{item.label}</span>
+                      {item.badge && (
+                        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-[4px] flex-shrink-0"
+                          style={{ background: 'rgba(134,239,172,0.12)', color: '#86efac', letterSpacing: '0.04em' }}>
+                          {item.badge}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
