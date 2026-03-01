@@ -97,9 +97,8 @@ export function Sidebar({ collapsed }) {
     >
       {/* Logo */}
       <div className="px-5 h-[60px] flex items-center border-b border-[#222222] flex-shrink-0">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/dashboard')}>
-          <div className="w-[7px] h-[7px] bg-[#F5F0E8] rounded-sm flex-shrink-0"></div>
-          <span className="text-[#F0F0F0] font-bold text-[18px] tracking-tight">Buildrs</span>
+        <div className="flex items-center cursor-pointer" onClick={() => navigate('/dashboard')}>
+          <BuildrsLogo height={28} />
         </div>
       </div>
 
