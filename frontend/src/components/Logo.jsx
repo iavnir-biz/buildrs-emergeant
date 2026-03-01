@@ -1,26 +1,18 @@
 import React from 'react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/2axsy0ty_Logo%20Buildrs%20%284%29.png';
+const LOGO_URL = 'https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/l0v9g12h_Logo%20Buildrs%20%28500%20x%20200%20px%29.png';
 
-// The 1080×1080 image has the logo content roughly at:
-//   Y: 35% → 65%  (30% of image height)
-//   X: 11% → 89%  (78% of image width)
-// We crop to show only the logo area.
-
-export default function BuildrsLogo({ contentHeight = 22, className = '' }) {
-  const imgSize   = Math.round(contentHeight / 0.30);   // full image display size
-  const marginTop = -Math.round(imgSize * 0.35);        // crop top black padding
-
+/**
+ * BuildrsLogo — logo officiel Buildrs (500×200px, fond noir)
+ * @param {number} height - hauteur en px (défaut: 30)
+ */
+export default function BuildrsLogo({ height = 30, className = '' }) {
   return (
-    <div
-      style={{ overflow: 'hidden', height: `${contentHeight}px`, width: `${imgSize}px`, flexShrink: 0 }}
+    <img
+      src={LOGO_URL}
+      alt="Buildrs"
+      style={{ height: `${height}px`, width: 'auto', display: 'block' }}
       className={className}
-    >
-      <img
-        src={LOGO_URL}
-        alt="Buildrs"
-        style={{ width: `${imgSize}px`, height: `${imgSize}px`, marginTop: `${marginTop}px`, display: 'block' }}
-      />
-    </div>
+    />
   );
 }
