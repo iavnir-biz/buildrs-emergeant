@@ -33,9 +33,8 @@ export default function Login() {
         <div className="dot-grid absolute inset-0"></div>
         <div className="relative z-10">
           {/* Logo */}
-          <div className="flex items-center gap-2 mb-16">
-            <div className="w-[8px] h-[8px] bg-[#F5F0E8] rounded-sm"></div>
-            <span className="text-white font-bold text-[32px] tracking-tight">Buildrs</span>
+          <div className="flex items-center mb-16">
+            <BuildrsLogo height={36} />
           </div>
           {/* Quote */}
           <div className="max-w-md">
