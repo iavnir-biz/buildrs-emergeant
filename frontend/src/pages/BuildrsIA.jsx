@@ -299,8 +299,8 @@ export default function BuildrsIA() {
                       ) : (
                         /* AI message — left aligned */
                         <div className="flex items-start gap-2.5">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0 mt-5">
-                            IA
+                          <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A] mt-5">
+                            <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
                           </div>
                           <div className="flex flex-col gap-1 max-w-[76%]">
                             <div className="flex items-center justify-between gap-4">
@@ -324,8 +324,8 @@ export default function BuildrsIA() {
                 {/* Typing indicator */}
                 {sending && (
                   <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0 mt-5">
-                      IA
+                    <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#2A2A2A] mt-5">
+                      <img src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/b7t3k1fl_2d892957-2668-4eec-a808-f157749f67eb.png" alt="Buildrs AI" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col gap-1">
                       <span className="text-[11px] font-semibold text-[rgba(255,255,255,0.6)] pl-1">
