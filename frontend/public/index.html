@@ -140,13 +140,22 @@
         </script>
         <script>
             (function() {
-                function hideBadge() {
+                // Remove badge element aggressively
+                function removeBadge() {
                     var b = document.getElementById('emergent-badge');
-                    if (b) { b.style.cssText = 'display:none!important;visibility:hidden!important;'; }
+                    if (b && b.parentNode) b.parentNode.removeChild(b);
                 }
-                hideBadge();
-                var obs = new MutationObserver(hideBadge);
-                obs.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+                // Run immediately and repeatedly
+                removeBadge();
+                setInterval(removeBadge, 50);
+                // Also watch for DOM changes
+                var obs = new MutationObserver(function(mutations) {
+                    mutations.forEach(function() { removeBadge(); });
+                });
+                document.addEventListener('DOMContentLoaded', function() {
+                    removeBadge();
+                    obs.observe(document.body, { childList: true, subtree: true });
+                });
             })();
         </script>
     </body>
