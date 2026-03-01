@@ -33,8 +33,8 @@ const SIDEBAR_GROUPS = [
     items: [
       { icon: MessageCircle, label: 'Parler à un coach', path: '/coaching/tickets' },
       { icon: Phone, label: 'Réserver un appel', path: '/coaching/appel' },
-      { icon: Bot, label: 'Discuter avec Buildrs AI', path: '/coaching/ia' },
-      { icon: FlaskConical, label: 'Buildrs Lab', path: '/coaching/lab' },
+      { icon: Bot, label: 'Discuter avec Buildrs IA', path: '/coaching/ia' },
+      { icon: FlaskConical, label: 'Buildrs Lab', path: '/coaching/lab', badge: 'new' },
       { icon: Video, label: 'Coaching en groupe', path: '/coaching/session' },
     ]
   },
@@ -138,6 +138,11 @@ export function Sidebar({ collapsed }) {
                     >
                       <Icon size={14} strokeWidth={active ? 2 : 1.5} />
                       <span className="text-[13px] font-medium">{item.label}</span>
+                      {item.badge && (
+                        <span className="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#EAB308] text-black uppercase tracking-wide">
+                          {item.badge}
+                        </span>
+                      )}
                     </button>
                   );
                 })}

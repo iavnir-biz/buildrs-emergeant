@@ -52,7 +52,7 @@ export default function BuildrsIA() {
           id: 'welcome',
           role: 'assistant',
           content:
-            "Bonjour ! Je suis Coach Buildrs AI, ton assistant pour créer et lancer ton SaaS avec l'IA.\n\nComment puis-je t'aider aujourd'hui ?",
+            "Bonjour ! Je suis Assistant Buildrs AI, ton assistant pour créer et lancer ton SaaS avec l'IA.\n\nComment puis-je t'aider aujourd'hui ?",
           created_at: new Date().toISOString(),
         },
       ]);
@@ -82,7 +82,7 @@ export default function BuildrsIA() {
               {
                 id: 'welcome',
                 role: 'assistant',
-                content: "Bonjour ! Je suis Coach Buildrs AI. Comment puis-je t'aider ?",
+                content: "Bonjour ! Je suis Assistant Buildrs AI. Comment puis-je t'aider ?",
                 created_at: new Date().toISOString(),
               },
             ]
@@ -127,7 +127,7 @@ export default function BuildrsIA() {
         )
       );
     } catch {
-      toast.error('Coach Buildrs AI ne répond pas. Réessaie dans un instant.');
+      toast.error('Assistant Buildrs AI ne répond pas. Réessaie dans un instant.');
       setMessages(prev => prev.filter(m => m.id !== tempMsg.id));
     }
     setSending(false);
@@ -242,7 +242,7 @@ export default function BuildrsIA() {
                 IA
               </div>
               <div className="text-center">
-                <h3 className="text-[#F0F0F0] font-semibold text-[16px] mb-2">Coach Buildrs AI</h3>
+                <h3 className="text-[#F0F0F0] font-semibold text-[16px] mb-2">Assistant Buildrs AI</h3>
                 <p className="text-[rgba(255,255,255,0.4)] text-[13px] max-w-xs leading-relaxed">
                   Pose tes questions sur ton SaaS, débloques tes obstacles, avance plus vite.
                 </p>
@@ -305,7 +305,7 @@ export default function BuildrsIA() {
                           <div className="flex flex-col gap-1 max-w-[76%]">
                             <div className="flex items-center justify-between gap-4">
                               <span className="text-[11px] font-semibold text-[rgba(255,255,255,0.6)] pl-1">
-                                Coach Buildrs AI
+                                Assistant Buildrs AI
                               </span>
                               <button className="flex items-center gap-1 text-[rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.6)] transition-colors text-[10px]">
                                 <ThumbsUp size={10} /> Évaluer
@@ -329,7 +329,7 @@ export default function BuildrsIA() {
                     </div>
                     <div className="flex flex-col gap-1">
                       <span className="text-[11px] font-semibold text-[rgba(255,255,255,0.6)] pl-1">
-                        Coach Buildrs AI
+                        Assistant Buildrs AI
                       </span>
                       <div className="bg-[#1A1A1A] border border-[#252525] px-4 py-3.5 rounded-[10px] rounded-tl-[4px] flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[rgba(255,255,255,0.35)] animate-bounce" style={{ animationDelay: '0ms' }} />
