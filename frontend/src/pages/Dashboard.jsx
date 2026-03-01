@@ -168,6 +168,14 @@ export default function Dashboard() {
                 className="relative flex items-center justify-between gap-6"
               >
                 <div className="flex items-center gap-4 flex-1 min-w-0">
+                  {/* Buildrs icon */}
+                  <div className="w-7 h-7 rounded-[6px] overflow-hidden flex-shrink-0">
+                    <img
+                      src="https://customer-assets.emergentagent.com/job_buildrs-app/artifacts/diyhqy9l_Logo%20Buildrs%20%285%29.png"
+                      alt="Buildrs"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   {/* Label with gradient text */}
                   <span
                     className="font-bold text-[15px] whitespace-nowrap flex-shrink-0 tracking-wide"
