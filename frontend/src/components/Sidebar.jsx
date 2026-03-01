@@ -7,7 +7,7 @@ import {
   CheckSquare, Bookmark, Phone, Video, MessageCircle, MapPin,
   Users, Lightbulb, CheckCircle, DollarSign, TrendingUp,
   Calculator, Tag, ClipboardList, Clock, MessageSquare,
-  ExternalLink, ChevronUp, Minus, Plus, LogOut, Bot, FlaskConical
+  ExternalLink, ChevronUp, Minus, Plus, LogOut, Bot, FlaskConical, Trophy
 } from 'lucide-react';
 
 const SIDEBAR_GROUPS = [
