@@ -138,5 +138,16 @@
                 },
             });
         </script>
+        <script>
+            (function() {
+                function hideBadge() {
+                    var b = document.getElementById('emergent-badge');
+                    if (b) { b.style.cssText = 'display:none!important;visibility:hidden!important;'; }
+                }
+                hideBadge();
+                var obs = new MutationObserver(hideBadge);
+                obs.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+            })();
+        </script>
     </body>
 </html>
