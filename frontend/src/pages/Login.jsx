@@ -39,7 +39,7 @@ export default function Login() {
           {/* Quote */}
           <div className="max-w-md">
             <blockquote className="text-[rgba(255,255,255,0.65)] text-[18px] font-light italic leading-relaxed mb-4">
-              "Je ne t'apprends pas à utiliser l'IA. Je te montre comment <span className="text-white font-medium not-italic">construire avec elle.</span>"
+              "Je ne t'apprends pas à utiliser l'IA. Je te montre comment <span className="text-white font-bold not-italic">construire des actifs tangibles avec elle.</span>"
             </blockquote>
             <cite className="text-[#F5F0E8] text-[12px] font-medium not-italic">— Alfred Orsini</cite>
           </div>
@@ -48,16 +48,16 @@ export default function Login() {
         {/* Stats */}
         <div className="relative z-10 flex gap-10">
           <div>
-            <div className="text-white font-bold text-[24px]">1,200+</div>
+            <div className="text-white font-bold text-[24px]">200+</div>
             <div className="text-[rgba(255,255,255,0.45)] text-[12px] font-light">Builders actifs</div>
           </div>
           <div>
-            <div className="text-white font-bold text-[24px]">180h</div>
-            <div className="text-[rgba(255,255,255,0.45)] text-[12px] font-light">De contenu</div>
+            <div className="text-white font-bold text-[24px]">85%</div>
+            <div className="text-[rgba(255,255,255,0.45)] text-[12px] font-light">Lancent en moins de 30 jours</div>
           </div>
           <div>
-            <div className="text-white font-bold text-[24px]">85%</div>
-            <div className="text-[rgba(255,255,255,0.45)] text-[12px] font-light">Lancent en &lt; 90 jours</div>
+            <div className="text-white font-bold text-[24px]">25 000€+</div>
+            <div className="text-[rgba(255,255,255,0.45)] text-[12px] font-light">De MRR cumulé</div>
           </div>
         </div>
       </div>
