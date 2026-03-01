@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import useEmblaCarousel from 'embla-carousel-react';
-import { ChevronLeft, ChevronRight, ArrowRight, BookOpen, Zap, Target, TrendingUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, BookOpen, Zap, Target, TrendingUp, FlaskConical, Users } from 'lucide-react';
 
 const CAROUSEL_SLIDES = [
   {
@@ -27,9 +27,16 @@ const CAROUSEL_SLIDES = [
 ];
 
 const BANNER_SLIDES = [
-  { logo: 'BL', name: 'Buildrs Lab', desc: "Rejoins 1 200+ builders qui construisent leur SaaS avec l'IA.", cta: 'En savoir plus >' },
-  { logo: 'AF', name: 'Alfred Orsini', desc: "Réserve ton appel stratégique individuel — disponibilités limitées.", cta: 'Réserver >' },
-  { logo: 'DC', name: 'Discord Buildrs', desc: "Rejoins la communauté et partage tes victoires en temps réel.", cta: 'Rejoindre >' },
+  {
+    label: 'Buildrs Infinite',
+    text: "Vous avez une idée et souhaitez la mettre en place rapidement ? On la crée pour vous en 30 jours.",
+    cta: 'Nous contacter →',
+  },
+  {
+    label: 'Buildrs Scale',
+    text: "Vous avez déjà un micro-SaaS et souhaitez le passer au niveau supérieur ? Parlons-en.",
+    cta: 'Nous contacter →',
+  },
 ];
 
 export default function Dashboard() {
@@ -68,7 +75,7 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Hero Carousel */}
+      {/* BLOC 1 — Hero Carousel */}
       <div className="relative mb-4 rounded-[10px] overflow-hidden" style={{ height: '300px' }}>
         <div className="embla h-full" ref={emblaRef}>
           <div className="embla__container h-full">
@@ -118,19 +125,35 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Banner slider */}
-      <div className="bg-[#141414] border border-[#222222] rounded-[10px] p-4 flex items-center justify-between mb-7">
-        <div className="flex items-center gap-4">
-          <div className="w-8 h-8 rounded-[6px] bg-[#F5F0E8] flex items-center justify-center text-[#0A0A0A] text-[11px] font-bold flex-shrink-0">
-            {BANNER_SLIDES[bannerIdx].logo}
+      {/* BLOC 2 — Bandeau scrollable carousel */}
+      <div className="mb-7">
+        <div className="bg-[#111111] border border-[#222222] rounded-[10px] px-5 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <span className="text-white font-bold text-[14px] whitespace-nowrap flex-shrink-0">
+              {BANNER_SLIDES[bannerIdx].label}
+            </span>
+            <div className="h-5 w-px bg-[#444444] flex-shrink-0"></div>
+            <p className="text-[rgba(255,255,255,0.65)] text-[13px] leading-snug line-clamp-2">
+              {BANNER_SLIDES[bannerIdx].text}
+            </p>
           </div>
-          <div className="h-6 w-px bg-[#222222]"></div>
-          <p className="text-[rgba(255,255,255,0.65)] text-[13px]">{BANNER_SLIDES[bannerIdx].desc}</p>
+          <button className="flex-shrink-0 bg-white text-[#0A0A0A] text-[12px] font-semibold px-4 py-2 rounded-[6px] hover:bg-[#F0F0F0] transition-colors duration-200">
+            {BANNER_SLIDES[bannerIdx].cta}
+          </button>
         </div>
-        <button className="btn-secondary text-[12px] flex-shrink-0 ml-4">{BANNER_SLIDES[bannerIdx].cta}</button>
+        {/* Navigation dots */}
+        <div className="flex justify-center gap-2 mt-2.5">
+          {BANNER_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setBannerIdx(i)}
+              className={`rounded-full transition-all duration-200 ${bannerIdx === i ? 'w-4 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-[rgba(255,255,255,0.25)]'}`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Stats grid */}
+      {/* BLOC 3 — Stats grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
         {[
           { icon: TrendingUp, label: 'Progression', value: `${stats?.progress_percent || 0}%`, sub: 'du programme' },
@@ -152,9 +175,9 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Continue where you left off */}
+      {/* BLOC 4 — Continue là où tu en es */}
       {currentModule && (
-        <div className="bg-[#141414] border border-[#222222] rounded-[10px] p-5">
+        <div className="bg-[#141414] border border-[#222222] rounded-[10px] p-5 mb-7">
           <h3 className="text-[rgba(255,255,255,0.5)] text-[12px] font-medium uppercase tracking-wider mb-4">
             Continue là où tu en es
           </h3>
@@ -183,6 +206,105 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* BLOC 5 — Explorer l'écosystème */}
+      <div className="mb-7">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-[#F0F0F0] font-semibold text-[20px] whitespace-nowrap">Explorer l'écosystème</h2>
+          <div className="flex-1 h-px bg-[#222222]"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          {/* Card 1 — Formation */}
+          <div className="bg-[#111111] border border-[#222222] rounded-[12px] overflow-hidden flex flex-col">
+            <div
+              className="relative h-[140px] bg-cover bg-center"
+              style={{ backgroundImage: `url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=70)` }}
+            >
+              <div className="absolute inset-0 bg-black/60"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white font-bold text-[22px] uppercase tracking-widest">FORMATION</span>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen size={16} className="text-[rgba(255,255,255,0.5)]" strokeWidth={1.5} />
+                <span className="text-[#F0F0F0] font-semibold text-[15px]">Formation</span>
+              </div>
+              <p className="text-[rgba(255,255,255,0.55)] text-[13px] leading-relaxed mb-3 flex-1">
+                Un programme conçu pour créer, lancer et monétiser ton SaaS avec l'IA.
+              </p>
+              <p className="text-[rgba(255,255,255,0.3)] text-[12px] mb-4">15 Modules · 30 Vidéos · 12h de contenu</p>
+              <button
+                onClick={() => navigate('/formation')}
+                className="w-full bg-white text-[#0A0A0A] text-[13px] font-semibold py-2.5 rounded-[8px] hover:bg-[#F0F0F0] transition-colors duration-200"
+              >
+                Découvrir la Formation →
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2 — Le Lab */}
+          <div className="bg-[#111111] border border-[#222222] rounded-[12px] overflow-hidden flex flex-col">
+            <div
+              className="relative h-[140px] bg-cover bg-center"
+              style={{ backgroundImage: `url(https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&q=70)` }}
+            >
+              <div className="absolute inset-0 bg-black/60"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white font-bold text-[22px] uppercase tracking-widest">LE LAB</span>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <FlaskConical size={16} className="text-[rgba(255,255,255,0.5)]" strokeWidth={1.5} />
+                <span className="text-[#F0F0F0] font-semibold text-[15px]">Le Lab</span>
+              </div>
+              <p className="text-[rgba(255,255,255,0.55)] text-[13px] leading-relaxed mb-3 flex-1">
+                Accès aux dernières nouveautés, SaaS en cours, lancements en live et contenus exclusifs.
+              </p>
+              <p className="text-[rgba(255,255,255,0.3)] text-[12px] mb-4">Mis à jour chaque semaine</p>
+              <button
+                onClick={() => navigate('/lab')}
+                className="w-full bg-white text-[#0A0A0A] text-[13px] font-semibold py-2.5 rounded-[8px] hover:bg-[#F0F0F0] transition-colors duration-200"
+              >
+                Accéder au Lab →
+              </button>
+            </div>
+          </div>
+
+          {/* Card 3 — Communauté */}
+          <div className="bg-[#111111] border border-[#222222] rounded-[12px] overflow-hidden flex flex-col">
+            <div
+              className="relative h-[140px] bg-cover bg-center"
+              style={{ backgroundImage: `url(https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=70)` }}
+            >
+              <div className="absolute inset-0 bg-black/60"></div>
+              <div className="absolute inset-0 flex items-center justify-center flex-col gap-1.5">
+                <span className="text-white text-[11px] font-semibold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">REJOINDRE</span>
+                <span className="text-white font-bold text-[22px] uppercase tracking-widest">COMMUNAUTÉ</span>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <Users size={16} className="text-[rgba(255,255,255,0.5)]" strokeWidth={1.5} />
+                <span className="text-[#F0F0F0] font-semibold text-[15px]">Communauté</span>
+              </div>
+              <p className="text-[rgba(255,255,255,0.55)] text-[13px] leading-relaxed mb-3 flex-1">
+                Un espace d'entraide, de partages et de connexion avec des builders partageant les mêmes ambitions.
+              </p>
+              <p className="text-[rgba(255,255,255,0.3)] text-[12px] mb-4">Membres · Coachs · 24h/7j</p>
+              <button
+                onClick={() => navigate('/forum')}
+                className="w-full bg-white text-[#0A0A0A] text-[13px] font-semibold py-2.5 rounded-[8px] hover:bg-[#F0F0F0] transition-colors duration-200"
+              >
+                Rejoindre la Communauté →
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }
