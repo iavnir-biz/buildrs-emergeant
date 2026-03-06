@@ -27,6 +27,7 @@ const SIDEBAR_GROUPS = [
       { icon: Sparkles, label: 'Générateur IA', path: '/generateur-ia' },
       { icon: CheckSquare, label: "Plan d'action", path: '/plan-action' },
       { icon: Bookmark, label: 'Ressources', path: '/ressources' },
+      { icon: Video, label: 'Agents Vidéo', path: '/formation/video-agents', badge: 'New' },
     ]
   },
   {

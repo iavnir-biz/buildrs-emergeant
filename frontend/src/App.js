@@ -28,6 +28,7 @@ import Leaderboard from './pages/Leaderboard';
 import CarteBuilders from './pages/CarteBuilders';
 import Outils from './pages/Outils';
 import Parametres from './pages/Parametres';
+import AcademieVideo from './pages/AcademieVideo';
 import ValidateurIdee from './pages/tools/ValidateurIdee';
 import CalculateurMRR from './pages/tools/CalculateurMRR';
 import StrategieSortie from './pages/tools/StrategieSortie';
@@ -86,6 +87,7 @@ const AppRouter = () => {
                 <Route path="/stats" element={<Stats />} />
                 <Route path="/formation" element={<Formation />} />
                 <Route path="/formation/:moduleId" element={<ModuleDetail />} />
+                <Route path="/formation/video-agents" element={<AcademieVideo />} />
                 <Route path="/generateur-ia" element={<GenerateurIA />} />
                 <Route path="/plan-action" element={<PlanAction />} />
                 <Route path="/ressources" element={<Ressources />} />
